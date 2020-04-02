@@ -1,0 +1,85 @@
+/* @font-faces*/
+
+@font-face {
+    font-family: "Open Sans";
+    src: url("theme/css/fonts/OpenSans-Regular.ttf") format("ttf");
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("theme/css/fonts/Roboto-Regular.ttf") format("ttf");
+}
+
+@font-face {
+    font-family: "Heebo";
+    src: url("theme/css/fonts/Heebo-Medium.ttf") format("ttf");
+}
+
+@font-face {
+    font-family: "Proxima Nova";
+    src: url("theme/css/fonts/Proxima Nova Alt Bold.otf") format("otf");
+}
+
+@font-face {
+    font-family: "Classic Grotesque";
+    src: url("theme/css/fonts/Classic Grotesque W04 Bold It.ttf") format("ttf");
+}
+
+
+
+/* css pour toutes les balises html de base / les gros conteneurs de strucutre */
+
+body {
+    margin: 0;
+    font-family: 'Roboto', 'Open Sans', sans-serif;
+    background: #eee;
+}
+
+nav {
+    height: 100px;
+    background: #fff;
+}
+
+footer {
+    background: #222;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    color: #888;
+    padding: 15px 0;
+    min-height: 250px;
+}
+
+footer ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+footer ul li {
+    margin: 10px 0;
+}
+
+footer a {
+    display: inline-block;
+    text-decoration: none;
+    color: #666;
+    position: relative;
+    transition-duration: .1s;
+    font-family: 'Classic Grotesque';
+}
+
+
+footer a:hover {
+    color: #ccc;
+    text-decoration: underline;
+}
+
+#content {
+    padding: 10px 0;
+}
+
+h1 {
+    text-align: center;
+    font-size: 4em;
+    font-family: 'Proxima Nova';
+}
