@@ -1,16 +1,25 @@
 # Projet Théâtre
 ## INF403 - uga
 
-Vous devez créer un fichier config.ini dans `www/_conf/`, et remplir les infos concernant la base de données.
+Le site détecte automatiquement si vous êtes en local ou non.
 
-dans www/_conf/config.ini, pour le champ `database.type`, veuillez mettre :
-* Si vous utilisez PDO: `pdo`
-* Si vous utilisez OCI: `oci`
+* Si vous êtes en local, il va gérer la base de données avec PDO.
+* Si vous êtes en local, il va gérer la base de données avec OCI.
 
-Cela permettra d'utiliser le fichier `pdo_database.php` ou `oci_database.php` suivant ce que vous avez mis.
-
-Le fichier `www/_conf/model.config.ini` sert uniquement au dev local. Pour l'utiliser, il faut changer le `define('DB_TYPE', '')` en `define('DB_TYPE', 'model.')` dans `www/index.php`
+Il vous suffit de remplir le champ `Database` dans `www/_conf/config.ini` :
+    * host
+    * port
+    * service_name
+    * username
+    * password
+    * type='oci' (ne pas toucher)
 
 Toutes les pages sont dans `views/`.
 
-Tous ce qui est serveur / template dans `www/`.
+La gestion base de données / configuration est dans `www/_conf/`.
+
+Le css, js, certains modules php sont dans `www/theme/`.
+
+La base (template) html est dans `www/theme/template.php`.
+
+Pour accèder au site: `mon/url/ProjetTheatre/www[/index.php]`
