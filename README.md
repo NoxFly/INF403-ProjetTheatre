@@ -6,7 +6,7 @@ Le site détecte automatiquement si vous êtes en local ou non.
 * Si vous êtes en local, il va gérer la base de données avec PDO.
 * Si vous êtes en ligne, il va gérer la base de données avec OCI.
 
-Il vous suffit de remplir le champ `Database` dans `www/_conf/config.ini` :
+* Il vous suffit de remplir le champ `Database` dans `www/_conf/config.ini` :
     * host
     * port
     * service_name
