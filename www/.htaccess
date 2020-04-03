@@ -1,0 +1,35 @@
+#
+# HTACCESS DORIAN
+#
+
+# securite
+# Désactive affichage des dossiers sans index
+Options -Indexes
+IndexIgnore *
+
+
+# Activation du mod rewrite d'Apache 
+RewriteEngine On
+
+
+########## Autorise que ces adresses IP
+# reseau local
+#RewriteCond %{REMOTE_ADDR} !^192\.168\.0\.\d+$
+
+# machine locale
+#RewriteCond %{REMOTE_ADDR} !^127\.0\.0\.1$
+#RewriteCond %{REMOTE_ADDR} !^::1$
+##########
+
+## redirection vers https
+#RewriteCond %{HTTPS} off
+# machine locale
+RewriteCond %{REMOTE_ADDR} !^127\.0\.0\.1$
+RewriteCond %{REMOTE_ADDR} !^::1$
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
+
+# Réécriture de index.html vers index.php 
+RewriteCond %{REQUEST_URI} !^index\.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-z0-9\-\/]*)?$ index.php?$1 [L]

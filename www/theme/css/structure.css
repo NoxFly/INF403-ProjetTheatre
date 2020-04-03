@@ -2,29 +2,33 @@
 
 @font-face {
     font-family: "Open Sans";
-    src: url("theme/css/fonts/OpenSans-Regular.ttf") format("ttf");
+    src: url("./fonts/OpenSans-Regular.ttf") format("truetype");
 }
 
 @font-face {
     font-family: "Roboto";
-    src: url("theme/css/fonts/Roboto-Regular.ttf") format("ttf");
+    src: url("./fonts/Roboto-Regular.ttf") format("truetype");
 }
 
 @font-face {
     font-family: "Heebo";
-    src: url("theme/css/fonts/Heebo-Medium.ttf") format("ttf");
+    src: url("./fonts/Heebo-Medium.ttf") format("truetype");
 }
 
 @font-face {
     font-family: "Proxima Nova";
-    src: url("theme/css/fonts/Proxima Nova Alt Bold.otf") format("otf");
+    src: url("./fonts/Proxima Nova Alt Bold.otf") format("truetype");
 }
 
 @font-face {
-    font-family: "Classic Grotesque";
-    src: url("theme/css/fonts/Classic Grotesque W04 Bold It.ttf") format("ttf");
+    font-family: "Raleway";
+    src: url("./fonts/Raleway-Bold.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: "Changa";
+    src: url("./fonts/Changa-VariableFont_wght.ttf") format("truetype");
+}
 
 
 /* css pour toutes les balises html de base / les gros conteneurs de strucutre */
@@ -36,27 +40,70 @@ body {
 }
 
 nav {
-    height: 100px;
+    height: 80px;
     background: #fff;
+}
+
+nav #nav-logo {
+    display: inline-block;
+    height: 100%;
+    overflow: hidden;
+}
+
+nav #nav-logo span {
+    width: 50px;
+    height: 50px;
+    background: #ccc;
+    display: inline-block;
+    border-radius: 100%;
+    margin: 15px 40px;
+}
+
+nav #box-links {
+    display: inline-block;
+    height: 100%;
+    overflow: hidden;
+}
+
+nav #box-links a {
+    color: #555;
+    font-family: 'Open Sans';
+    text-decoration: none;
+    margin: 28px 15px;
+    display: inline-block;
+    padding-bottom: 28px;
+    transition-duration: .2s;
+    border-bottom: 0px solid transparent;
+}
+
+nav #box-links a:hover {
+    color: #111;
+    border-bottom: 4px solid #d1363a;
+    box-sizing: border-box;
 }
 
 footer {
     background: #222;
     text-align: center;
     font-family: 'Open Sans', sans-serif;
-    color: #888;
+    color: #666;
     padding: 15px 0;
     min-height: 250px;
+    font-size: 13px;
 }
 
 footer ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    border-bottom: 1px solid #333;
+    display: inline-block;
 }
 
 footer ul li {
-    margin: 10px 0;
+    /* margin: 10px 0; */
+    display: inline-block;
+    padding: 10px;
 }
 
 footer a {
@@ -65,13 +112,23 @@ footer a {
     color: #666;
     position: relative;
     transition-duration: .1s;
-    font-family: 'Classic Grotesque';
+    font-family: 'Raleway';
+    font-size: 11px;
+    letter-spacing: .08em;
+    font-weight: 800;
+    text-transform: uppercase;
 }
-
 
 footer a:hover {
     color: #ccc;
     text-decoration: underline;
+}
+
+footer.absolute-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
 }
 
 #content {
@@ -81,5 +138,7 @@ footer a:hover {
 h1 {
     text-align: center;
     font-size: 4em;
-    font-family: 'Proxima Nova';
+    font-family: 'Changa';
+    text-transform: uppercase;
+    user-select: none;
 }

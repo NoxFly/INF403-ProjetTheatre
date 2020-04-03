@@ -1,9 +1,9 @@
 <footer>
-    <p>Martin Bolveig &copy; <?php echo date('Y'); ?></p>
     <ul>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Plan du site</a></li>
-        <li><a href="#">A propos</a></li>
-        <li><a href="#">Mentions légales</a></li>
+        <li><a href="about/contact">Contact</a></li>
+        <li><a href="about/plan-du-site">Plan du site</a></li>
+        <li><a href="about/a-propos">A propos</a></li>
+        <li><a href="about/mentions-legales">Mentions légales</a></li>
     </ul>
+    <p>Martin Bolveig &copy; <?php echo date('Y'); ?></p>
 </footer>

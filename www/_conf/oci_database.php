@@ -9,13 +9,13 @@ class Database {
 
     private $prefix = 'theatre';
 
-    public function __construct($host, $service_name, $port, $username, $password) {
+    public function __construct($config) {
         // try to connect to the database
-        $this->host = $host;
-        $this->port = $port;
-        $this->service_name = $service_name;
-        $this->username = $username;
-        $this->password = $password;
+        $this->host = $config['host'];
+        $this->port = $config['port'];
+        $this->service_name = $config['service_name'];
+        $this->username = $config['username'];
+        $this->password = $config['password'];
 
         $this->db = oci_connect($this->username, $this->password, "//$this->host:$this->port/$this->service_name");
         if(!$this->db) {
@@ -25,7 +25,7 @@ class Database {
         // we don't know Oracle / oci, so we can't do the security
     }
 
-    private function query($sql, $data = array()) {
+    private function query($sql) {
         
     }
 }

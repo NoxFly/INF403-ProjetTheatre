@@ -1,0 +1,14 @@
+#
+# HTACCESS PROTECTION DOSSIER
+#
+# interdire acces direct par le web
+
+<IfModule mod_authz_core.c>
+   # Apache 2.4
+   Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+   # Apache 2.2
+   Order deny,allow
+   Deny from all
+</IfModule>

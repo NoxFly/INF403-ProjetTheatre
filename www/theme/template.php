@@ -2,9 +2,9 @@
     <head>
         <meta charset='utf-8'>
 
-        <!-- <base href=""> -->
+        <base href="<?php echo $oSite->getBaseUrl().'/'; ?>">
 
-        <title>Théâtre LeeNox</title>
+        <title><?php echo $oSite->getTitle(); ?></title>
 
         <link rel="stylesheet" type="text/css" href="theme/css/structure.css">
         <link rel="stylesheet" type="text/css" href="theme/css/style.css">
@@ -18,7 +18,7 @@
         <?php include('theme/php/navigation.php'); ?>
 
         <div id="content">
-            <h1>Projet Théâtre</h1>
+            <?php include($oSite->getPagination()); ?>
         </div>
         
         <?php include('theme/php/footer.php'); ?>
