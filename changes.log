@@ -1,0 +1,7 @@
+- clean the main htaccess /www/.htaccess
+- fixed the double slashes issue in /www/_conf/site.php
+- added index.html files in every folders and subfolders to finish the htaccess security
+- added if(defined('_DTLR')) condition to finish the php security
+- fixed the footer dynamic absolute position with javascript
+- totally switched from PDO to OCI (MySQL to Oracle)
+- activate the database only when we are on remote website

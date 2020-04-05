@@ -5,14 +5,8 @@
  *          Lilian Russo
  */
 
-// error dev - localhost only
-if($_SERVER['SERVER_NAME'] == 'localhost') {
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-}
 // security constant
-define('_NOX', true);
+define('_DTLR', true);
 
 
 // defines
@@ -25,30 +19,38 @@ $loc = $_SERVER['SERVER_NAME'] == 'localhost'? 'local.' : '';
 
 
 
-
-
-// récupération fichier ini
+// config recovery
 $confPath = BASE_PATH.'/_conf/'.$loc.'config.ini';
  
 if(!file_exists($confPath)) {
-    die("<h1>Impossible d'accéder au fichier config</h1>");
+    die("<h1>Impossible to access to the config file</h1>");
 }
 
 $config = parse_ini_file($confPath, true);
-//
-
 
 $config['env'] = [
     'base_dir' => BASE_PATH,
     'view_dir' => VIEW_PATH
 ];
+//
 
-// création de la classe structurant le site
+
+// error dev - localhost only
+if($_SERVER['SERVER_NAME'] == 'localhost') {
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+}
+
+// if remote website, then activate the database
+else {
+	require_once(BASE_PATH.'/_conf/oci_database.php');
+	$oDb = new Database($config['database']);
+}
+
+// Website class
 require_once(BASE_PATH.'/_conf/site.php');
 $oSite = new Site($config);
 
-// création relation base de données
-require_once(BASE_PATH.'/_conf/'.$config['database']['type'].'_database.php');
-$oDb = new Database($config['database']);
-
+// add the website template
 require_once(BASE_PATH.'/theme/template.php');

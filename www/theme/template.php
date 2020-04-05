@@ -1,3 +1,5 @@
+<?php if(!defined('_DTLR')) exit('Unauthorized'); ?>
+
 <html>
     <head>
         <meta charset='utf-8'>

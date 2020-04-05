@@ -1,3 +1,5 @@
+<?php if(!defined('_DTLR')) exit('Unauthorized'); ?>
+
 <nav>
     <div id='nav-logo'>
         <span></span>

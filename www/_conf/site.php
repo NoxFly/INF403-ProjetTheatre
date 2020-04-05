@@ -29,7 +29,8 @@ class Site {
         $this->sViewPath    = empty($this->aConfig['env']['view_dir']) ? $this->sBasePath.DIRECTORY_SEPARATOR.'/views' : $this->aConfig['env']['view_dir'];
         $this->sProtocol 	= strpos($_SERVER['SERVER_PROTOCOL'],'HTTPS')===0 ? 'https' : 'http' ;
         $this->sBaseDir 	= str_replace(rtrim(str_replace('/', DIRECTORY_SEPARATOR, $_SERVER['DOCUMENT_ROOT']), DIRECTORY_SEPARATOR), '', $this->sBasePath);
-        $this->sBaseUrl		= str_replace('\\', '/', $this->sBaseDir ).'/';
+		$this->sBaseUrl		= str_replace('\\', '/', $this->sBaseDir );
+		if($this->sBaseUrl=='') $this->sBaseUrl = '/';
 
         // pages
         if(!empty($this->aConfig['site']['default_page'])) {
