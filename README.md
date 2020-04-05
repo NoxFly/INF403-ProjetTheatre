@@ -3,9 +3,7 @@
 
 Le site détecte automatiquement si vous êtes en local ou non.
 
-Il vous suffit de remplir le champ `Database` dans :
-* `www/_conf/config.ini` si vous êtes en ligne
-* `www/_conf/local.config.ini` si vous êtes en local
+Il vous suffit de remplir le champ `Database` dans `www/_conf/config.ini`.
 
 Toutes les pages sont dans `views/`.
 
