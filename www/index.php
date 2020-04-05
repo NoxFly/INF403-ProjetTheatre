@@ -14,13 +14,8 @@ define('BASE_PATH', __DIR__);
 define('VIEW_PATH', realpath(BASE_PATH.'/../views'));
 
 
-// determine which config we must use
-$loc = $_SERVER['SERVER_NAME'] == 'localhost'? 'local.' : '';
-
-
-
 // config recovery
-$confPath = BASE_PATH.'/_conf/'.$loc.'config.ini';
+$confPath = BASE_PATH.'/_conf/config.ini';
  
 if(!file_exists($confPath)) {
     die("<h1>Impossible to access to the config file</h1>");
