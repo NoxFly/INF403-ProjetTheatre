@@ -30,6 +30,7 @@
     src: url("./fonts/Changa-VariableFont_wght.ttf") format("truetype");
 }
 
+/* rouge: d1363a */
 
 /* css pour toutes les balises html de base / les gros conteneurs de strucutre */
 
@@ -70,16 +71,19 @@ nav #box-links a {
     color: #555;
     font-family: 'Open Sans';
     text-decoration: none;
-    margin: 28px 15px;
+    margin: 0 15px;
     display: inline-block;
-    padding-bottom: 28px;
-    transition-duration: .2s;
+	padding-bottom: 27px;
+	padding-top: 28px;
+	transition-duration: .2s;
+	width: 100px;
+	text-align: center;
     border-bottom: 0px solid transparent;
 }
 
 nav #box-links a:hover {
     color: #111;
-    border-bottom: 4px solid #d1363a;
+    border-bottom: 4px solid #f08f1d;
     box-sizing: border-box;
 }
 
@@ -90,7 +94,9 @@ footer {
     color: #666;
     padding: 15px 0;
     min-height: 250px;
-    font-size: 13px;
+	font-size: 13px;
+	border-bottom: 7px solid #f08f1d;
+	box-sizing: border-box;
 }
 
 footer ul {
