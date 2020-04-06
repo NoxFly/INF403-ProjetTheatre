@@ -17,13 +17,13 @@
     </head>
     
     <body>
-        <?php include('theme/php/navigation.php'); ?>
+        <?php include 'theme/php/navigation.php'; ?>
 
         <div id="content">
-            <?php include($oSite->getPagination()); ?>
+            <?php include $oSite->getPagination(); ?>
         </div>
         
-        <?php include('theme/php/footer.php'); ?>
+        <?php include 'theme/php/footer.php'; ?>
         <script src="theme/js/script.js"></script>
     </body>
 </html>

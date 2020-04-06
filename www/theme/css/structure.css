@@ -36,7 +36,8 @@
 body {
     margin: 0;
     font-family: 'Roboto', 'Open Sans', sans-serif;
-    background: #eee;
+	background: #eee;
+	overflow-x: hidden;
 }
 
 nav {

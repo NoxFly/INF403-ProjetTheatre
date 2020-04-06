@@ -58,14 +58,14 @@ class Site {
         }
     }
 
-    function createContent() {
+    private function createContent() {
 		ob_start();
 		$sIncPage = $this->getPagination();
 		include($sIncPage);
 		$this->sContent = ob_get_clean();
     }
 
-    function getPagination() {
+    public function getPagination() {
       	// dossier des pages
 		$sPagesPath =  $this->sViewPath.'/';
 		
@@ -76,7 +76,7 @@ class Site {
 
       	// sinon 404
       	header('HTTP/1.0 404 Not Found');
-      	return $sPagesPath.'404.php';
+        return $sPagesPath.'404.php';
     }
     
     public function setContent($s) {

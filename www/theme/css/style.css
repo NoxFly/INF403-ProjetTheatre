@@ -1,0 +1,56 @@
+#connection-form {
+	width: 500px;
+	margin: 0 auto 40px auto;
+	text-align: center;
+}
+
+#connection-form input {
+	display: block;
+	margin: 10px auto;
+	border-radius: 3px;
+	border: 1px solid #999;
+	padding: 7px;
+	width: 200px;
+	background: #fff;
+}
+
+#connection-form button {
+	background: linear-gradient(#e6e6e5, #b8b8b5);
+	border: 1px solid #999;
+	border-radius: 3px;
+	width: 100px;
+	padding: 5px;
+	cursor: pointer;
+}
+
+#connection-form button:hover {
+	filter: brightness(105%);
+}
+
+#connection-state {
+	position: fixed;
+	top: -100px;
+	left: 50%;
+	background: #333;
+	color: #fff;
+	text-align: center;
+	padding: 10px;
+	border-radius: 4px;
+	transform: translateX(-50%);
+	animation: connectionStateAnim 5s .5s forwards;
+}
+
+#connection-state.success {
+	background: #77b255;
+}
+
+#connection-state.fail {
+	background: #dd2e44;
+}
+
+@keyframes connectionStateAnim {
+	0% {}
+	10% {top: 20px;}
+	90% {top: 20px;}
+	100% {top: -100px;}
+}

@@ -1,4 +1,22 @@
-<?php if(!defined('_DTLR')) exit('Unauthorized'); ?>
+<?php if(!defined('_DTLR')) exit('Unauthorized');
+
+$tabs = (object)array(
+	'Accueil' => '',
+	'Billeterie' => 'billeterie',
+	'Planning' => 'planning'
+);
+
+// LOGGED TABS
+if(isset($_SESSION['login'])) {
+	$tabs->{'Deconnexion'} = 'administration/deconnexion';
+}
+
+// VISITOR TABS
+else {
+	$tabs->{'Connexion'} = 'administration/connexion';
+}
+
+?>
 
 <nav>
     <div id='nav-logo'>
@@ -6,9 +24,10 @@
     </div>
 
     <div id='box-links'>
-        <a href=''>Accueil</a>
-        <a href='billeterie'>Billeterie</a>
-        <a href="planning">Planning</a>
-        <a href="administration/connexion">Connexion</a>
+		<?php
+		foreach($tabs as $name => $link) {
+			echo "<a href='$link'>$name</a>";
+		}
+		?>
     </div>
 </nav>
