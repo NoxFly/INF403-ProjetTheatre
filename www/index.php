@@ -18,7 +18,7 @@ $local = $_SERVER['SERVER_NAME'] == 'localhost';
 
 // config recovery
 // determine which config we must use
-$confPath = BASE_PATH.'/_conf/'.($local?'local':'').'config.ini';
+$confPath = BASE_PATH.'/_conf/'.($local?'local.':'').'config.ini';
  
 if(!file_exists($confPath)) {
     die("<h1>Impossible to access to the config file</h1>");
