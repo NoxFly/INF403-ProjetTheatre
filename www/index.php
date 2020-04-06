@@ -13,9 +13,12 @@ define('_DTLR', true);
 define('BASE_PATH', __DIR__);
 define('VIEW_PATH', realpath(BASE_PATH.'/../views'));
 
+$local = $_SERVER['SERVER_NAME'] == 'localhost';
+
 
 // config recovery
-$confPath = BASE_PATH.'/_conf/config.ini';
+// determine which config we must use
+$confPath = BASE_PATH.'/_conf/'.($loc?'local':'').'config.ini';
  
 if(!file_exists($confPath)) {
     die("<h1>Impossible to access to the config file</h1>");
@@ -31,7 +34,7 @@ $config['env'] = [
 
 
 // error dev - localhost only
-if($_SERVER['SERVER_NAME'] == 'localhost') {
+if($local) {
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
