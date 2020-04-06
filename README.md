@@ -1,7 +1,7 @@
 # Projet Théâtre
 ## INF403 - UGA
 
-### Requierements
+### Prérequis
 
 * PDO_OCI
 * Apache allow .htaccess RewriteRule
