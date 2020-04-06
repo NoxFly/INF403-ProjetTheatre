@@ -1,17 +1,18 @@
 # Projet Théâtre
-## INF403 - uga
+## INF403 - UGA
 
-Le site détecte automatiquement si vous êtes en local ou non.
+### Requierements
 
-Il vous suffit de remplir le champ `Database` dans `www/_conf/[local.]config.ini` suivant si vous êtes en local ou non.
+* PDO_OCI
+* Apache allow .htaccess RewriteRule
 
-La base de donnée ne se charge pas en local, pour modifier ça, vous devez changer la variable `$local` dans `www/index.php` sur `true`.
+### Structure
 
 Toutes les pages sont dans `views/`.
 
 La gestion base de données / configuration est dans `www/_conf/`.
 
-Le css, js, certains modules php sont dans `www/theme/`.
+Le css, js, certains modules php sont dans `www/theme/` ou `www/_inc/`.
 
 La base (template) html est dans `www/theme/template.php`.
 
