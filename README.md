@@ -3,7 +3,7 @@
 
 ### Prérequis
 
-* PDO_OCI
+* OCI8
 * Apache allow .htaccess RewriteRule
 * php >= 7.2
 
@@ -11,7 +11,7 @@
 
 Toutes les pages sont dans `views/`.
 
-La gestion base de données / configuration est dans `www/_conf/`.
+La gestion base de données / configuration sont dans `www/_conf/`.
 
 Le css, js, certains modules php sont dans `www/theme/` ou `www/_inc/`.
 

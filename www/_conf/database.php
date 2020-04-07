@@ -28,27 +28,26 @@ class Database {
 		}
 
 		try {
-			$this->db = new PDO("oci:dbname=//$this->host:$this->port/$this->service_name", $this->username, $this->password);
+			$this->db = oci_connect($this->username, $this->password, "//$this->host:$this->port/$this->service_name");
+
+			if(!$this->db) return false;
 			return true;
-		} catch(\PDOException $e) {
+		} catch(Exception $e) {
 			return false;
 		}
 	}
 
-    private function query($sql, $data = array()) {
-		$req = $this->db->prepare($sql);
-        $req->execute($data);
-        return $req->fetchAll(PDO::FETCH_OBJ);
+    private function query($sql) {
+		$stid = oci_parse($this->db, $sql);
+		oci_execute($stid);
+		oci_fetch_all($stid, $res);
+		return $res;
 	}
 	
 	public function listTables() {
-		$res = $this->query("SELECT table_name, owner FROM all_tables WHERE owner = ?", [$this->prefix]);
+		$res = $this->query("SELECT table_name, owner FROM all_tables WHERE owner = '$this->prefix'");
 		if(!empty($res)) {
-			$tables = [];
-			foreach($res as $i => $table) {
-				$tables[] = $table->TABLE_NAME;
-			}
-			return $tables;
+			return $res['TABLE_NAME'];
 		}
 
 		return [];
