@@ -10,4 +10,4 @@ if(isset($_SESSION['login']) && isset($_SESSION['password'])) {
 }
 
 // in all the cases, return to the home
-header('location: /public/projet_theatre/www/index.php');
+header('location: '.$this->getBaseUrl().'/index.php');

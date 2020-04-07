@@ -20,7 +20,7 @@
         <?php include 'theme/php/navigation.php'; ?>
 
         <div id="content">
-            <?php include $oSite->getPagination(); ?>
+            <?php echo $oSite->getContent(); ?>
         </div>
         
         <?php include 'theme/php/footer.php'; ?>
