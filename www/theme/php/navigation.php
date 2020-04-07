@@ -1,19 +1,19 @@
 <?php if(!defined('_DTLR')) exit('Unauthorized');
 
-$tabs = (object)array(
-	'Accueil' => '',
-	'Billeterie' => 'billeterie',
-	'Planning' => 'planning'
-);
+$tabs = [
+	['Accueil', '']
+];
 
 // LOGGED TABS
 if($oSite->isConnected()) {
-	$tabs->{'Deconnexion'} = 'administration/deconnexion';
+	$tabs[] = ['Tickets', 'tickets'];
+	$tabs[] = ['Planning', 'planning'];
+	$tabs[] = ['<span class="logo-logout"><span></span></span>', 'administration/deconnexion'];
 }
 
 // VISITOR TABS
 else {
-	$tabs->{'Connexion'} = 'administration/connexion';
+	$tabs[] = ['Connexion', 'administration/connexion'];
 }
 
 ?>
@@ -25,8 +25,8 @@ else {
 
     <div id='box-links'>
 		<?php
-		foreach($tabs as $name => $link) {
-			echo "<a href='$link'>$name</a>";
+		foreach($tabs as $i => $tab) {
+			echo "<a href='$tab[1]'>$tab[0]</a>";
 		}
 		?>
     </div>

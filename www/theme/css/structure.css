@@ -43,7 +43,8 @@ body {
 
 nav {
     height: 80px;
-    background: #fff;
+	background: #fff;
+	position: relative;
 }
 
 nav #nav-logo {
@@ -58,7 +59,10 @@ nav #nav-logo span {
     background: #ccc;
     display: inline-block;
     border-radius: 100%;
-    margin: 15px 40px;
+	margin: 15px 40px;
+	position: relative;
+	overflow: hidden;
+	border: none;
 }
 
 nav #box-links {
@@ -85,6 +89,73 @@ nav #box-links a:hover {
     border-bottom: 4px solid #f08f1d;
     box-sizing: border-box;
 }
+
+nav #box-links a[href='administration/deconnexion'] {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%);
+}
+
+nav #box-links a[href='administration/deconnexion'] > span {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 20px;
+	height: 20px;
+	border: 2px solid #777;
+	border-radius: 100%;
+}
+
+nav #box-links a[href='administration/deconnexion'] > span::after {
+	content: '';
+	background: #fff;
+	position: absolute;
+	top: 50%;
+	left: 100%;
+	transform: translate(-60%, -50%);
+	width: 5px;
+	height: 10px;
+	z-index: 1;
+}
+
+nav #box-links a[href='administration/deconnexion'] > span span {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%);
+	width: 20px;
+	height: 2px;
+	background: #777;
+	z-index: 2;
+	transition-duration: .2s;
+}
+
+nav #box-links a[href='administration/deconnexion'] > span span::after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translate(0, -45%) rotate(45deg);
+	width: 5px;
+	height: 5px;
+	border-top: 2px solid #777;
+	border-right: 2px solid #777;
+}
+
+nav #box-links a[href='administration/deconnexion']:hover {
+	border: none;
+}
+
+nav #box-links a[href='administration/deconnexion']:hover span {
+	border-color: #f08f1d;
+}
+
+nav #box-links a[href='administration/deconnexion']:hover > span span {
+	left: 60%;
+}
+
 
 footer {
     background: #222;
