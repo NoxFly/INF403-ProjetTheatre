@@ -5,6 +5,7 @@
 
 * PDO_OCI
 * Apache allow .htaccess RewriteRule
+* php >= 7.2
 
 ### Structure
 

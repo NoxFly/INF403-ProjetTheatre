@@ -52,7 +52,6 @@ $config['env'] = [
 
 // Database class
 require_once BASE_PATH.'/_conf/database.php';
-$oDb = new Database($config['database']);
 
 // Website class
 require_once BASE_PATH.'/_conf/site.php';
@@ -66,15 +65,21 @@ require_once BASE_PATH.'/_inc/connexion.php';
 
 // if it's by the form
 if(isset($_POST['login']) && isset($_POST['password'])) {
-	connect($oDb, $_POST['login'], $_POST['password'], true);
+	if(connect($oSite->db(), $_POST['login'], $_POST['password'], true)) {
+		$oSite->setConnection(true);
+	}
 }
 
 // else, if it's by session
 else if(isset($_SESSION['login']) && isset($_SESSION['password']) &&
 		$_SESSION['login'] != null && $_SESSION['password'] != null) {
-	connect($oDb, $_SESSION['login'], $_SESSION['password']);
+	if(connect($oSite->db(), $_SESSION['login'], $_SESSION['password'])) {
+		$oSite->setConnection(true);
+	}
 }
 //
+
+$oSite->createContent();
 
 
 // add the website template

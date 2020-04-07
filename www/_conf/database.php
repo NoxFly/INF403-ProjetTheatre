@@ -8,7 +8,7 @@ class Database {
 	private $password;
 	private $db;
 
-    private $prefix = 'theatre';
+    private $prefix = 'THEATRE';
 
     public function __construct($config) {
         $this->host = $config['host'];
@@ -30,12 +30,27 @@ class Database {
 		try {
 			$this->db = new PDO("oci:dbname=//$this->host:$this->port/$this->service_name", $this->username, $this->password);
 			return true;
-		} catch(PDOException $e) {
+		} catch(\PDOException $e) {
 			return false;
 		}
 	}
 
-    private function query($sql) {
-		
-    }
+    private function query($sql, $data = array()) {
+		$req = $this->db->prepare($sql);
+        $req->execute($data);
+        return $req->fetchAll(PDO::FETCH_OBJ);
+	}
+	
+	public function listTables() {
+		$res = $this->query("SELECT table_name, owner FROM all_tables WHERE owner = ?", [$this->prefix]);
+		if(!empty($res)) {
+			$tables = [];
+			foreach($res as $i => $table) {
+				$tables[] = $table->TABLE_NAME;
+			}
+			return $tables;
+		}
+
+		return [];
+	}
 }

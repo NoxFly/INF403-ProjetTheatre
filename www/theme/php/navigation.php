@@ -7,7 +7,7 @@ $tabs = (object)array(
 );
 
 // LOGGED TABS
-if(isset($_SESSION['login'])) {
+if($oSite->isConnected()) {
 	$tabs->{'Deconnexion'} = 'administration/deconnexion';
 }
 

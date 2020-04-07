@@ -12,6 +12,11 @@
 	padding: 7px;
 	width: 200px;
 	background: #fff;
+	transition-duration: .01s;
+}
+
+#connection-form input:focus {
+	border-color: #f08f1d;
 }
 
 #connection-form button {
@@ -53,4 +58,58 @@
 	10% {top: 20px;}
 	90% {top: 20px;}
 	100% {top: -100px;}
+}
+
+p {
+	font-family: 'Open Sans';
+}
+
+.btn {
+	color: #fff;
+	text-align: center;
+	padding: 5px 10px;
+	font-size: 1em;
+	border-radius: 3em;
+	text-decoration: none;
+	position: relative;
+	overflow: hidden;
+	font-family: 'Changa';
+}
+
+.btn::before {
+	content: '';
+	background: #f08f1d;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -2;
+}
+
+.btn::after {
+	content: '';
+	width: 110%;
+	height: 140%;
+	position: absolute;
+	top: 120%;
+	background: #333;
+	transform: rotate(5deg);
+	left: -5%;
+	transition-duration: .3s;
+	z-index: -1;
+}
+
+.btn:hover::after {
+	top: -20%;
+}
+
+.btn:hover {
+	text-decoration: underline;
+}
+
+.home-ctn {
+	margin: 10px auto;
+	width: 150px;
+	display: block;
 }

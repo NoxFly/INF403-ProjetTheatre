@@ -21,6 +21,12 @@ class Site {
 	protected $Content 			= '';
 	protected $aConfig			= [];
 
+	// user
+	protected $connected		= false;
+
+	// database
+	protected $database			= null;
+
     function __construct($aConfig) {
         $this->aConfig = $aConfig;
 
@@ -31,6 +37,8 @@ class Site {
         $this->sBaseDir 	= str_replace(rtrim(str_replace('/', DIRECTORY_SEPARATOR, $_SERVER['DOCUMENT_ROOT']), DIRECTORY_SEPARATOR), '', $this->sBasePath);
 		$this->sBaseUrl		= str_replace('\\', '/', $this->sBaseDir );
 		if($this->sBaseUrl=='') $this->sBaseUrl = '/';
+
+		$this->database = new Database($aConfig['database']);
 
         // pages
         if(!empty($this->aConfig['site']['default_page'])) {
@@ -58,7 +66,7 @@ class Site {
         }
     }
 
-    private function createContent() {
+    public function createContent() {
 		ob_start();
 		$sIncPage = $this->getPagination();
 		include($sIncPage);
@@ -109,5 +117,17 @@ class Site {
         }
         
 		return $this->sBaseUrl;
+	}
+
+	public function setConnection($state) {
+		$this->connected = $state;
+	}
+
+	public function isConnected() {
+		return $this->connected;
+	}
+
+	public function db() {
+		return $this->database;
 	}
 }
