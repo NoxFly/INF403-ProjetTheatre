@@ -19,7 +19,7 @@
     <body>
         <?php include 'theme/php/navigation.php'; ?>
 
-        <div id="content">
+        <div id="content" class='page-<?php echo $oSite->getPage(); ?>'>
             <?php echo $oSite->getContent(); ?>
         </div>
         

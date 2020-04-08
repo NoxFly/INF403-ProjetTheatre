@@ -40,16 +40,30 @@ class Database {
     private function query($sql) {
 		$stid = oci_parse($this->db, $sql);
 		oci_execute($stid);
-		oci_fetch_all($stid, $res);
-		return $res;
+		
+		/**/$nRows = oci_fetch_all($stid, $res);
+		return array('data' => $res, 'number_rows' => $nRows);/**/
+
+		/* $res = [];
+		while($row = oci_fetch_array($stid, OCI_ASSOC)){
+			$res[] = $row;
+		}
+
+		$nRows = count($res);
+
+		return array('data' => $res, 'number_rows' => $nRows); */
 	}
 	
 	public function listTables() {
 		$res = $this->query("SELECT table_name, owner FROM all_tables WHERE owner = '$this->prefix'");
-		if(!empty($res)) {
-			return $res['TABLE_NAME'];
+		if(!empty($res['data'])) {
+			return $res['data']['TABLE_NAME'];
 		}
 
 		return [];
+	}
+
+	public function getTableContent($tableName) {
+		return $this->query("SELECT * FROM $this->prefix.$tableName");
 	}
 }

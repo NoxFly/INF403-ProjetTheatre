@@ -80,6 +80,11 @@ else if(isset($_SESSION['login']) && isset($_SESSION['password']) &&
 }
 //
 
+// if user attemps to show a page that requires connection while he is not
+if(!$oSite->isConnected() && !in_array($oSite->getPage(), ['', 'accueil', 'administration/connexion'])) {
+	header('location: '.$oSite->getBaseUrl());
+}
+
 $oSite->createContent();
 
 

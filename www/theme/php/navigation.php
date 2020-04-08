@@ -6,8 +6,9 @@ $tabs = [
 
 // LOGGED TABS
 if($oSite->isConnected()) {
-	$tabs[] = ['Tickets', 'tickets'];
-	$tabs[] = ['Planning', 'planning'];
+	$tabs[] = ['Tables', 'tables'];
+	$tabs[] = ['Tickets', 'table/lestickets'];
+	$tabs[] = ['Planning', 'table/lesspectacles'];
 	$tabs[] = ['<span class="logo-logout"><span></span></span>', 'administration/deconnexion'];
 }
 
