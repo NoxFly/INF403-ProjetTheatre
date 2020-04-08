@@ -1,3 +1,15 @@
+#h404 {
+	font-size: 20em;
+	margin: 0;
+	padding: 0;
+}
+
+#p404 {
+	text-align: center;
+	font-family: "Open Sans";
+	transform: translateY(-150px);
+}
+
 #connection-form {
 	width: 500px;
 	margin: 0 auto 40px auto;
@@ -115,7 +127,8 @@ p {
 }
 
 .page-tables {
-	padding: 0 500px;
+	width: 300px;
+	margin: 0 auto;
 }
 
 .page-tables a {

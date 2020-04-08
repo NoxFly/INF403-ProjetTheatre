@@ -76,6 +76,11 @@ class Site {
     public function getPagination() {
       	// dossier des pages
 		$sPagesPath =  $this->sViewPath.'/';
+
+		// tables
+		if(preg_match("/table\/.+/", $this->sPage)) {
+			return $sPagesPath.'table.php';
+		}
 		
 		// pages html
 		if(file_exists($sPagesPath.$this->sPage.'.php')) {

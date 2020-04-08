@@ -1,0 +1,12 @@
+@media screen and (max-width: 1000px) {
+	h1 {font-size: 3em;}
+
+	table {width: 100%; min-width: initial;}
+}
+
+@media screen and (max-width: 650px) {
+	nav #box-links {display: none;}
+	#h404 {font-size: 7em;}
+	#p404 {transform: translate(0, -30px);}
+	.page-tables {width: 100%;}
+}

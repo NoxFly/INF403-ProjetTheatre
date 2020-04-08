@@ -39,19 +39,9 @@ class Database {
 
     private function query($sql) {
 		$stid = oci_parse($this->db, $sql);
-		oci_execute($stid);
-		
-		/**/$nRows = oci_fetch_all($stid, $res);
-		return array('data' => $res, 'number_rows' => $nRows);/**/
-
-		/* $res = [];
-		while($row = oci_fetch_array($stid, OCI_ASSOC)){
-			$res[] = $row;
-		}
-
-		$nRows = count($res);
-
-		return array('data' => $res, 'number_rows' => $nRows); */
+		oci_execute($stid);		
+		$nRows = oci_fetch_all($stid, $res);
+		return array('data' => $res, 'number_rows' => $nRows);
 	}
 	
 	public function listTables() {

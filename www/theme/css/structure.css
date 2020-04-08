@@ -219,3 +219,13 @@ h1 {
     text-transform: uppercase;
     user-select: none;
 }
+
+h2 {
+	font-size: 1em;
+	font-weight: normal;
+	text-align: center;
+	font-family: 'Changa';
+	margin-bottom: 0;
+	padding-bottom: 0;
+	transform: translateY(20px);
+}
