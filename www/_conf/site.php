@@ -1,4 +1,4 @@
-<?php
+<?php if(!defined('_DTLR')) exit('Unauthorized');
 
 class Site {
     protected $sProtocol 		= null;
@@ -50,8 +50,7 @@ class Site {
         }
 
         if(!empty($_SERVER['QUERY_STRING'])) {
-          $this->sPage = preg_replace('#[^a-z0-9\/\-]#', '', $_SERVER['QUERY_STRING']);
-            // si url fini par / redirige sans le slash
+          $this->sPage = preg_replace('#[^a-zA-Z0-9\/\-]#', '', $_SERVER['QUERY_STRING']);
             if(substr($this->sPage, -1) == '/') {
                 header('location:'.$this->sBaseUrl . rtrim($this->sPage,'/'));
             }
@@ -74,7 +73,7 @@ class Site {
     }
 
     public function getPagination() {
-      	// dossier des pages
+      	// pages folder
 		$sPagesPath =  $this->sViewPath.'/';
 
 		// tables
@@ -82,12 +81,27 @@ class Site {
 			return $sPagesPath.'table.php';
 		}
 		
-		// pages html
+		// details-spectacle
+		if(preg_match("/details\-spectacle\/.*/", $this->sPage)) {
+			return $sPagesPath.'details-spectacle.php';
+		}
+
+		// resa-spectacle
+		if(preg_match("/resa-spectacle\/.*/", $this->sPage)) {
+			return $sPagesPath.'resa-spectacle.php';
+		}
+
+		// spectacle-dossier
+		if(preg_match("/spectacle-dossier\/.*/", $this->sPage)) {
+			return $sPagesPath.'spectacle-dossier.php';
+		}
+
+		// html pages
 		if(file_exists($sPagesPath.$this->sPage.'.php')) {
 			return $sPagesPath.$this->sPage.'.php';
       	}
 
-      	// sinon 404
+      	// else 404
       	header('HTTP/1.0 404 Not Found');
         return $sPagesPath.'404.php';
     }

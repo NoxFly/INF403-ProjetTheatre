@@ -10,13 +10,14 @@
 	transform: translateY(-150px);
 }
 
-#connection-form {
+form {
 	width: 500px;
-	margin: 0 auto 40px auto;
+	margin: 0 auto;
 	text-align: center;
+	min-height: 200px;
 }
 
-#connection-form input {
+input {
 	display: block;
 	margin: 10px auto;
 	border-radius: 3px;
@@ -27,11 +28,11 @@
 	transition-duration: .01s;
 }
 
-#connection-form input:focus {
+input:focus {
 	border-color: #f08f1d;
 }
 
-#connection-form button {
+button {
 	background: linear-gradient(#e6e6e5, #b8b8b5);
 	border: 1px solid #999;
 	border-radius: 3px;
@@ -40,7 +41,7 @@
 	cursor: pointer;
 }
 
-#connection-form button:hover {
+button:hover {
 	filter: brightness(105%);
 }
 
@@ -55,6 +56,7 @@
 	border-radius: 4px;
 	transform: translateX(-50%);
 	animation: connectionStateAnim 5s .5s forwards;
+	z-index: 99;
 }
 
 #connection-state.success {
@@ -181,4 +183,28 @@ table tr td {
 
 table tr td:last-child {
 	border-right: none;
+}
+
+.summary-box {
+	display: block;
+	border: 1px solid #111;
+	margin: 2px 100px;
+	padding: 10px;
+	color: #111;
+	text-decoration: none;
+	background: #fafafa;
+	text-align: center;
+}
+
+.summary-box:hover {
+	filter: brightness(90%);
+}
+
+.page-accueil article {
+	opacity: 0.7;
+	transition-duration: .1s;
+}
+
+.page-accueil article:hover {
+	opacity: 1;
 }

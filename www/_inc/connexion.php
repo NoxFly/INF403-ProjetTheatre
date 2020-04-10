@@ -1,4 +1,4 @@
-<?php
+<?php if(!defined('_DTLR')) exit('Unauthorized');
 
 
 function connect($oDb, $login, $password, $announcement=false) {

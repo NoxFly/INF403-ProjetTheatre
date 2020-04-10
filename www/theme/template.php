@@ -19,9 +19,9 @@
     <body>
         <?php include 'theme/php/navigation.php'; ?>
 
-        <div id="content" class='page-<?php echo $oSite->getPage(); ?>'>
+        <section id="content" class='page-<?php echo $oSite->getPage(); ?>'>
             <?php echo $oSite->getContent(); ?>
-        </div>
+		</section>
         
         <?php include 'theme/php/footer.php'; ?>
         <script src="theme/js/script.js"></script>
