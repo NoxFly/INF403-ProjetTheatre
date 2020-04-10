@@ -187,8 +187,9 @@ table tr td:last-child {
 
 .summary-box {
 	display: block;
-	border: 1px solid #111;
-	margin: 2px 100px;
+	border: 1px solid #f08f1d;
+	border-top: none;
+	margin: 0 20px;
 	padding: 10px;
 	color: #111;
 	text-decoration: none;
