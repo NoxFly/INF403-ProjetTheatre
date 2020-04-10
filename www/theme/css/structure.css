@@ -236,21 +236,17 @@ h2 {
 	color: #fff;
 	margin: 40px 20px 0 20px;
 	position: relative;
-	padding: 5px;
+	padding: 0;
 	overflow: hidden;
-	height: 16px;
+	text-align: center;
 }
 
 .page-accueil h3 .h3-home-bg {
-	content: '';
 	background: #f08f1d;
-	position: absolute;
-	z-index: -1;
-	left: 0;
-	top: 0;
 	border-radius: 3px 0 0 0;
 	display: inline-block;
 	padding-left: 10px;
+	position: relative;
 }
 
 .page-accueil h3 .h3-home-bg::after {
@@ -263,5 +259,18 @@ h2 {
 	width: 100px;
 	height: 60px;
 	transform: translateX(-50%) rotate(45deg);
+	border-radius: 3px;
+}
+
+.page-accueil h3 .h3-home-bg::before {
+	content: '';
+	background: #f08f1d;
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	right: 100%;
+	width: 100px;
+	height: 60px;
+	transform: translateX(50%) rotate(-45deg);
 	border-radius: 3px;
 }
