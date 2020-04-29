@@ -202,10 +202,8 @@ table tr td:last-child {
 }
 
 .page-accueil article {
-	opacity: 0.7;
-	transition-duration: .1s;
-}
-
-.page-accueil article:hover {
-	opacity: 1;
+	width: 1200px;
+	max-width: 100%;
+	text-align: center;
+	margin: 0 auto;
 }

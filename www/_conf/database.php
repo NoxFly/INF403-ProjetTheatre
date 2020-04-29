@@ -43,6 +43,21 @@ class Database {
 		$nRows = oci_fetch_all($stid, $res);
 		return array('data' => $res, 'number_rows' => $nRows);
 	}
+
+	public function execute($sql) {
+		$stid = oci_parse($this->db, $sql);
+		$ok = oci_execute($stid);
+
+		if(!$ok) {
+			$error_message = oci_error($stid);
+			echo "<p style='text-align: center; color: #444; margin-bottom: 100px;'>{$error_message['message']}</p>";
+			oci_free_statement($stid);
+
+			return null;
+		}
+
+		return $stid;
+	}
 	
 	public function listTables() {
 		$res = $this->query("SELECT table_name, owner FROM all_tables WHERE owner = '$this->prefix'");

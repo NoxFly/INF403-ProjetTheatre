@@ -30,15 +30,15 @@ else {
 </article>
 
 <article>
-	<h3>Reqêtes à modifier sur le BD fournie</h3>
-		<a href="details-ticket" class='summary-box'>Afficher les détails d'un ticker</a>
+	<h3>Reqêtes à modifier sur la BD fournie</h3>
+		<a href="details-ticket" class='summary-box'>Afficher les détails d'un ticket</a>
 		<a href="spectacle-dossier/v1/11" class='summary-box'>Pour les spectacles réservés par le dossier No 11, donner les places d'une catégorie donnée<br>(version améliorée 1)</a>
 		<a href="spectacle-dossier/v2/11" class='summary-box'>Pour les spectacles réservés par le dossier No 11, donner les places d'une catégorie donnée<br>(version améliorée 2)</a>
 		<a href="spectacle-dossier/v3" class='summary-box'>Pour les spectacles réservés par le dossier No 11, donner les places d'une catégorie donnée<br>(version améliorée 3)</a>
 </article>
 
 <article>
-	<h3>Reqêtes à réaliser sur le BD fournie</h3>
+	<h3>Reqêtes à réaliser sur la BD fournie</h3>
 		<a href="reservations-vides" class='summary-box'>Afficher les représentations sans place réservée</a>
 		<a href="resa-spectacle/1" class='summary-box'>Pour chaque spectacle, donner son numéro, son nom, les dates de ses représentations et pour chacune le nombre de places réservées<br>(version avec deux curseurs)</a>
 		<a href="resa-spectacle/2" class='summary-box'>Pour chaque spectacle, donner son numéro, son nom, les dates de ses représentations et pour chacune le nombre de places réservées<br>(version avec un seul curseur)</a>

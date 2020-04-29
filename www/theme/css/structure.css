@@ -56,13 +56,14 @@ nav #nav-logo {
 nav #nav-logo span {
     width: 50px;
     height: 50px;
-    background: #ccc;
     display: inline-block;
-    border-radius: 100%;
+	border-radius: 100%;
 	margin: 15px 40px;
 	position: relative;
 	overflow: hidden;
 	border: none;
+	background: -3px 0/185px url('../images/theatre-logo.jpg') no-repeat #ccc;
+	transform: scale(2);
 }
 
 nav #box-links {
@@ -247,6 +248,7 @@ h2 {
 	display: inline-block;
 	padding-left: 10px;
 	position: relative;
+	user-select: none;
 }
 
 .page-accueil h3 .h3-home-bg::after {
