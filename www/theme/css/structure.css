@@ -41,6 +41,10 @@ body {
 	overflow-x: hidden;
 }
 
+body.wait {
+	cursor: wait !important;
+}
+
 nav {
     height: 80px;
 	background: #fff;
@@ -275,4 +279,10 @@ h2 {
 	height: 60px;
 	transform: translateX(50%) rotate(-45deg);
 	border-radius: 3px;
+}
+
+p.desc {
+	text-align: center;
+	color: #444;
+	margin-bottom: 50px;
 }

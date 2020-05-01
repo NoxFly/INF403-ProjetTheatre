@@ -18,7 +18,7 @@ class Database {
         $this->username = null;
 		$this->password = null;
 
-		$this->db = null;
+		$this->link = null;
 	}
 	
 	public function connect($username='', $password='') {
@@ -28,29 +28,37 @@ class Database {
 		}
 
 		try {
-			$this->db = @oci_connect($this->username, $this->password, "//$this->host:$this->port/$this->service_name");
+			$this->link = @oci_connect($this->username, $this->password, "//$this->host:$this->port/$this->service_name");
 
-			if(!$this->db) return false;
+			if(!$this->link) return false;
 			return true;
 		} catch(Exception $e) {
 			return false;
 		}
 	}
 
-    private function query($sql) {
-		$stid = oci_parse($this->db, $sql);
+	// normally not public but for a homework like this I can
+    public function query($sql) {
+		$stid = oci_parse($this->link, $sql);
 		oci_execute($stid);		
+
 		$nRows = oci_fetch_all($stid, $res);
+
 		return array('data' => $res, 'number_rows' => $nRows);
 	}
 
-	public function execute($sql) {
-		$stid = oci_parse($this->db, $sql);
-		$ok = oci_execute($stid);
+	// instead of query that returns a result, it returns a pointer / cursor to the result
+	public function execute($sql, $bind=null, $params=null) {
+		$stid = oci_parse($this->link, $sql);
+
+		if($bind) oci_bind_by_name($stid, ':n', $bind);
+
+		if($params) $ok = @oci_execute($stid, $params);
+		else $ok = @oci_execute($stid);
 
 		if(!$ok) {
 			$error_message = oci_error($stid);
-			echo "<p style='text-align: center; color: #444; margin-bottom: 100px;'>{$error_message['message']}</p>";
+			echo "<p class='desc'>{$error_message['message']}</p>";
 			oci_free_statement($stid);
 
 			return null;
@@ -61,6 +69,7 @@ class Database {
 	
 	public function listTables() {
 		$res = $this->query("SELECT table_name, owner FROM all_tables WHERE owner = '$this->prefix'");
+
 		if(!empty($res['data'])) {
 			return $res['data']['TABLE_NAME'];
 		}
@@ -72,66 +81,38 @@ class Database {
 		return $this->query("SELECT * FROM $this->prefix.$tableName");
 	}
 
-	public function getColdplayTime() {
-		$request = ("
-			SELECT to_char(daterep,'Day, DD-Month-YYYY HH:MI') as daterep
-			FROM $this->prefix.LesRepresentations natural join $this->prefix.LesSpectacles
-			WHERE lower(nomS) = lower(:n)
-		");
-
-		$stid = oci_parse($this->db, $request);
-		$spectacle = 'Coldplay';
-		oci_bind_by_name($stid, ':n', $spectacle);
-
-		$ok = @oci_execute($stid);
-		$result = [];
-
-		if($ok && $res = oci_fetch($stid)) {
-			do {
-				$result[] = oci_result($stid, 1);
-			} while(oci_fetch($stid));
-		}
-
-		oci_free_statement($stid);
-		return $result;
+	public function cancel() {
+		oci_rollback($this->link);
 	}
 
-	public function getBackrestCategoryInfos($category, $NobackRest) {
-		$request = ("
-			SELECT noPlace, noRang, noZone, nomS
-			FROM $this->prefix.LesSieges natural join $this->prefix.LesZones natural join $this->prefix.LesTickets natural join $this->prefix.LesSpectacles
-			WHERE lower(nomC) = lower(:n)
-			AND noDossier = $NobackRest
-			order by noPlace
-		");
+	public function commit() {
+		oci_commit($this->link);
+	}
 
-		// analyse de la requete et association au curseur
-		$stid = oci_parse($this->db, $request);
+	public function displayError($cursor) {
+		$e = @oci_error($cursor);
+		
+		$message = '<p class="desc"><b>';
 
-		// affectation de la variable
-		oci_bind_by_name($stid, ':n', $category);
-
-		// execution de la requete
-		$ok = @oci_execute($stid);
-		$result = [];
-
-		if($ok) {
-			$res = oci_fetch($stid);
-	
-			if($res) {
-				do {
-					$result[] = (object)array(
-						"noPlace" 	=> oci_result($stid, 1),
-						"noRang"  	=> oci_result($stid, 2),
-						"noZone"  	=> oci_result($stid, 3),
-						"nomS" 		=> oci_result($stid, 4)
-					);
-				} while(oci_fetch($stid));
-			}
+		switch($e['code']) {
+			case 1:
+				$message .= "-> contrainte de clef non respectée";
+				break;
+			case 1400:
+				$message .= "-> valeur absente interdite";
+				break;
+			case 1722:
+				$message .= "-> erreur de type, un nombre était attendu";
+				break;
+			case 2291:
+				$message .= "-> contrainte référentielle non respectée";
+				break;
+			default:
+				$message .= "-> autre message: ".$e['code'];
 		}
 
-		oci_free_statement($stid);
+		$message .= '</b><br>('.$e['message'].')</p>';
 
-		return $result;
+		echo $message;
 	}
 }

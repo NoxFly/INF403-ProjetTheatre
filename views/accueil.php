@@ -39,9 +39,9 @@ else {
 
 <article>
 	<h3>Reqêtes à réaliser sur la BD fournie</h3>
-		<a href="reservations-vides" class='summary-box'>Afficher les représentations sans place réservée</a>
-		<a href="resa-spectacle/1" class='summary-box'>Pour chaque spectacle, donner son numéro, son nom, les dates de ses représentations et pour chacune le nombre de places réservées<br>(version avec deux curseurs)</a>
-		<a href="resa-spectacle/2" class='summary-box'>Pour chaque spectacle, donner son numéro, son nom, les dates de ses représentations et pour chacune le nombre de places réservées<br>(version avec un seul curseur)</a>
+		<a href="representations-vides" class='summary-box'>Afficher les représentations sans place réservée</a>
+		<a href="resa-spectacle/2" class='summary-box'>Pour chaque spectacle, donner son numéro, son nom, les dates de ses représentations et pour chacune le nombre de places réservées<br>(version avec deux curseurs)</a>
+		<a href="resa-spectacle/1" class='summary-box'>Pour chaque spectacle, donner son numéro, son nom, les dates de ses représentations et pour chacune le nombre de places réservées<br>(version avec un seul curseur)</a>
 </article>
 
 <article>

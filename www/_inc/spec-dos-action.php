@@ -1,33 +1,62 @@
-<?php if(!defined('_DTLR')) exit('Unauthorized');
+<?php if(!defined('_DTLR')) exit('Unauthorized');	
 
 echo '<div id="specDos-res"></div>';
 
 if(isset($_POST['category']) && !empty($category = $_POST['category'])) {
 	// searching for a given category
-	$places = $this->db()->getBackrestCategoryInfos($category, $noBackrest);
+	$req = "SELECT noPlace, noRang, noZone, nomS
+		FROM
+			theatre.LesSieges natural join
+			theatre.LesZones natural join
+			theatre.LesTickets natural join
+			theatre.LesSpectacles
+		WHERE
+			lower(nomC) = lower(:n) AND
+			noDossier = $noBackrest
+		ORDER BY
+			noPlace";
 
-	if(empty($places)) {
-		echo '<p style="text-align: center; color: #444; margin-bottom: 50px;">Aucune places trouvées dans cette catégorie avec ce numéro de dossier</p>';
-	} else {
-		$keys = array_keys($places);
 
-		echo '<table>
-			<tr>
-				<th>Spectacle</th>
-				<th>Place</th>
-				<th>Rang</th>
-				<th>Zone</th>
-			</tr>';
+	$cursor = $this->db->execute($req, $category);	
 
-		foreach($places as $k => $place) {
-			echo '<tr>
-				<td>'.$place->nomS.'</td>
-				<td>'.$place->noPlace.'</td>
-				<td>'.$place->noRang.'</td>
-				<td>'.$place->noZone.'</td>
-			</tr>';
+
+	if($cursor) {
+		$row = oci_fetch($cursor);
+
+		if($row) {
+
+			echo '<table>
+				<tr>
+					<th>Spectacle</th>
+					<th>Place</th>
+					<th>Rang</th>
+					<th>Zone</th>
+				</tr>';
+
+			do {
+
+				$noPlace = oci_result($cursor, 1);
+				$noRang  = oci_result($cursor, 2);
+				$noZone  = oci_result($cursor, 3);
+				$nomS 	 = oci_result($cursor, 4);
+
+				echo '<tr>
+					<td>'.$nomS.'</td>
+					<td>'.$noPlace.'</td>
+					<td>'.$noRang.'</td>
+					<td>'.$noZone.'</td>
+				</tr>';
+
+			} while(oci_fetch($cursor));
+
+			echo '</table>';
+
+		} else {
+			echo '<p class="desc">Aucunes places trouvées dans cette catégorie avec ce numéro de dossier</p>';
 		}
-
-		echo '</table>';
+	} else {
+		echo '<p class="desc">Aucunes places trouvées dans cette catégorie avec ce numéro de dossier</p>';
 	}
+
+	oci_free_statement($cursor);
 }

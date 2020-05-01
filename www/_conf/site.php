@@ -25,7 +25,7 @@ class Site {
 	protected $connected		= false;
 
 	// database
-	protected $database			= null;
+	public $db					= null;
 
     function __construct($aConfig) {
         $this->aConfig = $aConfig;
@@ -38,7 +38,7 @@ class Site {
 		$this->sBaseUrl		= str_replace('\\', '/', $this->sBaseDir );
 		if($this->sBaseUrl=='') $this->sBaseUrl = '/';
 
-		$this->database = new Database($aConfig['database']);
+		$this->db = new Database($aConfig['database']);
 
         // pages
         if(!empty($this->aConfig['site']['default_page'])) {
@@ -144,9 +144,5 @@ class Site {
 
 	public function isConnected() {
 		return $this->connected;
-	}
-
-	public function db() {
-		return $this->database;
 	}
 }

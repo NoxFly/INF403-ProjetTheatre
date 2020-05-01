@@ -8,7 +8,7 @@ if(preg_match("/^v\d(\/\d+)?$/", $arg) && in_array(($v = intval(preg_replace('/v
 		<h1 style='margin-top: 0;'>Spectacle dossier</h1>";
 
 	$noBackrest = ($v!=3)? preg_replace('/v\d\/(\d+)/', '$1', $arg) : null;
-	if($noBackrest == "v$v") echo "<p style='text-align: center; color: #444; margin-bottom: 100px;'>Argument dans l'url non accepté</p>";
+	if($noBackrest == "v$v") echo "<p class='desc'url non accepté</p>";
 	else include BASE_PATH . "/_inc/spec-dos-v$v.php";
 }
 
@@ -28,5 +28,5 @@ else if(preg_match("/^\d+$/", $arg)) {
 }
 
 else {
-	echo "<p style='text-align: center; color: #444; margin-top: 100px;'>Argument dans l'url non accepté</p>";
+	echo "<p class='desc'url non accepté</p>";
 }

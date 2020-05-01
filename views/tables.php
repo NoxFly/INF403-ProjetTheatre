@@ -1,6 +1,6 @@
 <?php if(!defined('_DTLR')) exit('Unauthorized');
 
-$tables = $this->db()->listTables();
+$tables = $this->db->listTables();
 
 ?>
 

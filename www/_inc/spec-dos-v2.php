@@ -2,7 +2,7 @@
 
 
 
-$categories = $this->db()->getTableContent('lescategories')['data']['NOMC'];
+$categories = $this->db->getTableContent('lescategories')['data']['NOMC'];
 
 echo '<form><select id="select-specDos">
 	<option selected disabled>Catégorie</option>';

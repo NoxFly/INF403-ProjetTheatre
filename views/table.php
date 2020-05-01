@@ -3,13 +3,13 @@
 // get the table name
 $table = preg_replace('/table\/(.+)/', '$1', $this->getPage());
 
-$tables = $this->db()->listTables();
+$tables = $this->db->listTables();
 
 echo "<h2>table</h2><h1 style='margin-top: 0;'>$table</h1>";
 
 // the asked table does not exist
 if(!in_array($table, array_keys($tables))) {
-	echo "<p style='text-align: center; color: #444;'>Cette table n'existe pas</p>";
+	echo "<p class='desc'existe pas</p>";
 }
 
 
@@ -17,7 +17,7 @@ if(!in_array($table, array_keys($tables))) {
 else {
 
 	// RECOVERY
-	$content = $this->db()->getTableContent($table);
+	$content = $this->db->getTableContent($table);
 
 	// TABLE CONTENT
 	echo '<table>

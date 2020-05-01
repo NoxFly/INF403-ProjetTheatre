@@ -1,33 +1,87 @@
 <?php if(!defined('_DTLR')) exit('Unauthorized');
 
-$lesPlaces = $this->db()->getTableContent('LesPlaces');
-$n = $lesPlaces['number_rows'];
-$lesPlaces = $lesPlaces['data'];
+echo '<form id="spec-dos-v3">';
 
-echo '<form><select>
-	<option selected disabled>Place</option>';
-	for($i=0; $i<$n; $i++) {
-		$p = $lesPlaces['NOPLACE'][$i];
-		$r = $lesPlaces['NORANG'][$i];
-		$z = $lesPlaces['NOZONE'][$i];
-		echo "<option>$p-$r-$z</option>";
-	}
-echo '</select>';
+	$req = "SELECT DISTINCT noDossier FROM theatre.LesTickets ORDER BY noDossier";
 
-if(false) {
+	$res = $this->db->query($req);
 
-	$categories = $this->db()->getTableContent('lescategories')['data']['NOMC'];
+	echo '<select id="select-noDossier">
+		<option disabled selected>Numéro dossier</option>';
 
-	echo '<form><select id="select-specDos">
-		<option selected disabled>Catégorie</option>';
+		foreach($res['data'] as $line) {
+			foreach($line as $elem) {
+				echo "<option value='$elem'>$elem</option>";
+			}
+		}
 
-	foreach($categories as $c) {
-		echo "<option>$c</option>";
-	}
+	echo '</select>';
 
-	echo '</select></form>';
+	echo '<article id="step-2">';
 
-	include BASE_PATH . '/_inc/spec-dos-action.php';
-}
+		if(isset($_POST['noDossier'])) {
+
+			$n = $_POST['noDossier'];
+
+			$req = "SELECT DISTINCT Z.nomC
+				FROM
+					theatre.LesZones Z,
+					theatre.LesSieges S,
+					theatre.LesTickets T
+				WHERE
+					S.noZone = Z.noZone AND
+					T.noPlace = S.noPlace AND
+					T.noDossier = $n AND
+					T.noRang = S.noRang";
+
+			$res = $this->db->query($req);
+
+			echo '<p>Veuillez saisir une catégorie:</p>';
+
+			foreach($res['data'] as $col) {
+				foreach($col as $line) {
+					echo "<label for='$line'>$line<input type='radio' name='categorie' value='$line' id='$line'></label>";
+				}
+			}
+		}
+
+	echo "</article>";
 
 echo '</form>';
+
+
+echo '<div id="result">';
+if(isset($_POST['categorie'])) {
+	$n = $_POST['noDossier'];
+	$categorie = $_POST['categorie'];
+
+	$req = "SELECT S.noPlace, S.noRang
+		FROM
+			theatre.LesSieges S,
+			theatre.LesTickets T,
+			theatre.LesZones Z
+		WHERE
+			Z.noZone = S.noZone AND
+			S.noPlace = T.noPlace AND
+			S.noRang = T.noRang AND
+			T.noDossier = $n";
+
+	$res = $this->db->query($req);
+
+	echo "<table>
+		<tr>
+			<th>noPlace</th>
+			<th>noRang</th>
+		</tr>";
+
+		foreach($res['data']['NORANG'] as $k => $d) {
+			echo '<tr>';
+
+			echo "<td>".$res['data']['NOPLACE'][$k]."</td><td>$d</td>";
+
+			echo '</tr>';
+		}
+		
+	echo '</table>';
+}
+echo '</div>';

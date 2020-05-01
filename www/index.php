@@ -66,7 +66,7 @@ require_once BASE_PATH.'/_inc/connexion.php';
 
 // if it's by the form
 if(isset($_POST['login']) && isset($_POST['password'])) {
-	if(connect($oSite->db(), $_POST['login'], $_POST['password'], true)) {
+	if(connect($oSite->db, $_POST['login'], $_POST['password'], true)) {
 		$oSite->setConnection(true);
 	}
 }
@@ -74,7 +74,7 @@ if(isset($_POST['login']) && isset($_POST['password'])) {
 // else, if it's by session
 else if(isset($_SESSION['login']) && isset($_SESSION['password']) &&
 		$_SESSION['login'] != null && $_SESSION['password'] != null) {
-	if(connect($oSite->db(), $_SESSION['login'], $_SESSION['password'])) {
+	if(connect($oSite->db, $_SESSION['login'], $_SESSION['password'])) {
 		$oSite->setConnection(true);
 	}
 }

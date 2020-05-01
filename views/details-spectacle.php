@@ -1,28 +1,19 @@
-<?php if(!defined('_DTLR')) exit('Unauthorized');
-
-$spec = str_replace('details-spectacle/', '', $this->getPage());
-
-$content = [];
-if($spec == 'Coldplay') $content = $this->db()->getColdplayTime();
-
-?>
-
+<?php if(!defined('_DTLR')) exit('Unauthorized'); ?>
 
 <h1>Détails du spectacle</h1>
 
 <?php
 
-if(empty($content)) {
-	echo '<p>Pas de dates de spectacle</p>';
-}
+$spec = str_replace('details-spectacle/', '', $this->getPage());
 
-else {
-	echo '<table>
-		<tr><th>Dates de spectacle</th></tr>';
+if($spec == 'Coldplay') {
+
+	include BASE_PATH . "/_inc/coldplay.php";
+
+} else if(preg_match("/^les\-enfoires\/(1|2|3)$/", $spec)) {
+
+	$v = intval(str_replace('les-enfoires/', '', $spec));
 	
-	foreach($content as $i => $s) {
-		echo "<tr><td>$s</td></tr>";
-	}
+	include BASE_PATH . "/_inc/enfoires-v$v.php";
 
-	echo '</table>';
 }
