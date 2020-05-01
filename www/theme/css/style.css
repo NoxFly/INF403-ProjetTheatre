@@ -128,12 +128,8 @@ p {
 	display: block;
 }
 
-.page-tables {
-	width: 300px;
-	margin: 0 auto;
-}
-
-.page-tables a {
+.page-tables a,
+.page-tables-personnelles a {
 	text-decoration: none;
 	color: #111;
 	font-family: 'Open Sans';
@@ -141,12 +137,16 @@ p {
 	transition-duration: .1s;
 }
 
-.page-tables a:hover {
+.page-tables a:hover,
+.page-tables-personnelles a:hover {
 	color: #f08f1d;
 }
 
-.page-tables ul {
+.page-tables ul,
+.page-tables-personnelles ul {
 	padding-bottom: 30px;
+	width: 300px;
+	margin: 0 auto;
 }
 
 table {

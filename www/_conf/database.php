@@ -6,7 +6,7 @@ class Database {
     private $service_name;
     private $username;
 	private $password;
-	private $db;
+	private $link;
 
     private $prefix = 'THEATRE';
 
@@ -67,8 +67,11 @@ class Database {
 		return $stid;
 	}
 	
-	public function listTables() {
-		$res = $this->query("SELECT table_name, owner FROM all_tables WHERE owner = '$this->prefix'");
+	public function listTables($dbName=null) {
+		if(!$dbName) $dbName = $this->prefix;
+
+		$res = $this->query("SELECT table_name, owner FROM all_tables WHERE owner = '$dbName'");
+
 
 		if(!empty($res['data'])) {
 			return $res['data']['TABLE_NAME'];
@@ -77,8 +80,8 @@ class Database {
 		return [];
 	}
 
-	public function getTableContent($tableName) {
-		return $this->query("SELECT * FROM $this->prefix.$tableName");
+	public function getTableContent($owner, $tableName) {
+		return $this->query("SELECT * FROM $owner.$tableName");
 	}
 
 	public function cancel() {

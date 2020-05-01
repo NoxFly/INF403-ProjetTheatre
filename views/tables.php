@@ -9,7 +9,7 @@ $tables = $this->db->listTables();
 <ul>
 	<?php
 	foreach($tables as $k => $table) {
-		$link = 'table/' . strtolower($table);
+		$link = 'table/THEATRE/' . strtolower($table);
 		echo "<li><h3><a href='$link'>$table</a><h3></li>";
 	}
 	?>
