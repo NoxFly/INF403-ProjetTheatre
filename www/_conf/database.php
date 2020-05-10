@@ -48,7 +48,7 @@ class Database {
 	}
 
 	// instead of query that returns a result, it returns a pointer / cursor to the result
-	public function execute($sql, $bind=null, $params=null) {
+	public function execute($sql, $bind=null, $params=null,$verbose=TRUE) {
 		$stid = oci_parse($this->link, $sql);
 
 		if($bind) oci_bind_by_name($stid, ':n', $bind);
@@ -58,7 +58,9 @@ class Database {
 
 		if(!$ok) {
 			$error_message = oci_error($stid);
-			echo "<p class='desc'>{$error_message['message']}</p>";
+			if($verbose){
+				echo "<p class='desc'>{$error_message['message']}</p>";
+			}
 			oci_free_statement($stid);
 
 			return null;
