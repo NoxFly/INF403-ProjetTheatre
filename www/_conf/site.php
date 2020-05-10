@@ -81,9 +81,9 @@ class Site {
 			return $sPagesPath.'table.php';
 		}
 		
-		// details-spectacle
-		if(preg_match("/details\-spectacle\/.*/", $this->sPage)) {
-			return $sPagesPath.'details-spectacle.php';
+		// details-representation
+		if(preg_match("/details\-representation\/.*/", $this->sPage)) {
+			return $sPagesPath.'details-representation.php';
 		}
 
 		// resa-spectacle

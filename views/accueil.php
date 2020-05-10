@@ -25,7 +25,7 @@ else {
 
 <article>
 	<h3>Reqêtes fournies (observer le comportement et le code) sur le BD fournie</h3>
-		<a href="details-spectacle/Coldplay" class='summary-box'>Représentation(s) Coldplay</a>
+		<a href="details-representation/Coldplay" class='summary-box'>Représentation(s) Coldplay</a>
 		<a href="spectacle-dossier/11" class='summary-box'>Pour les spectacles réservés par le dossier No 11, donner les places d'une catégorie donnée</a>
 </article>
 
@@ -46,9 +46,9 @@ else {
 
 <article>
 	<h3>Reqêtes fournies (obeserver le comportement et le code) sur la BD à créer</h3>
-		<a href="details-spectacle/les-enfoires/1" class='summary-box'>Une nouvelle représentation du spectacle "Les enfoirés" est programmée le 29/02/2016 (version 1)</a>
-		<a href="details-spectacle/les-enfoires/2" class='summary-box'>Une nouvelle représentation du spectacle "Les enfoirés" est programmée le 29/02/2016 (version 2)</a>
-		<a href="details-spectacle/les-enfoires/3" class='summary-box'>Une nouvelle représentation du spectacle "Les enfoirés" est programmée le 29/02/2016 (version 3)</a>
+		<a href="details-representation/les-enfoires/1" class='summary-box'>Une nouvelle représentation du spectacle "Les enfoirés" est programmée le 29/02/2016 (version 1)</a>
+		<a href="details-representation/les-enfoires/2" class='summary-box'>Une nouvelle représentation du spectacle "Les enfoirés" est programmée le 29/02/2016 (version 2)</a>
+		<a href="details-representation/les-enfoires/3" class='summary-box'>Une nouvelle représentation du spectacle "Les enfoirés" est programmée le 29/02/2016 (version 3)</a>
 </article>
 
 <article>

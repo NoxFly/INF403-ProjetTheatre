@@ -4,7 +4,7 @@
 
 <?php
 
-$spec = str_replace('details-spectacle/', '', $this->getPage());
+$spec = str_replace('details-representation/', '', $this->getPage());
 
 if($spec == 'Coldplay') {
 
