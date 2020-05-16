@@ -269,3 +269,12 @@ form label input {
 .page-transfert button:first-child {
 	margin-top: 100px;
 }
+
+.page-CategorieTicket table {
+	width: 300x;
+	min-width: 300px;
+}
+
+.page-CategorieTicket table th {
+	width: 100px;
+}
