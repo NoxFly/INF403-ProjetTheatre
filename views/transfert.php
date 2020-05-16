@@ -34,7 +34,7 @@ if(isset($_POST["del"])){
             $req = "DROP table $table";
             $rep = $this->db->execute($req,null,null,FALSE);
             if(!$rep){
-                echo "<div id='connection-state' class='fail'>Erreur: les fichiers ont déjà été supprimé ou n'ont jamais été importé</div>";
+                echo "<div id='connection-state' class='fail'>Erreur: les fichiers ont déjà été supprimés ou n'ont jamais été importés</div>";
                 $success = FALSE;
                 break;
             }
@@ -54,7 +54,7 @@ if(isset($_POST["set"])){
             $req = "CREATE table $table as (select * from THEATRE.$table)";
             $rep = $this->db->execute($req,null,null,FALSE);
             if(!$rep){
-                echo "<div id='connection-state' class='fail'>Erreur: les fichiers ont sans doute déjà été importé</div>";
+                echo "<div id='connection-state' class='fail'>Erreur: les fichiers ont sans doute déjà été importés</div>";
                 $success = FALSE;
                 break;
             }
