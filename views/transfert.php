@@ -49,7 +49,7 @@ if(isset($_POST["set"])){
         echo 'Pas de contenu';
     }
     else{        
-        foreach($all_table as $table){
+        foreach($all_table as $table) {
             $success = TRUE;
             $req = "CREATE table $table as (select * from THEATRE.$table)";
             $rep = $this->db->execute($req,null,null,FALSE);

@@ -40,9 +40,9 @@ class Database {
 	// normally not public but for a homework like this I can
     public function query($sql) {
 		$stid = oci_parse($this->link, $sql);
-		oci_execute($stid);		
+		@oci_execute($stid);		
 
-		$nRows = oci_fetch_all($stid, $res);
+		$nRows = @oci_fetch_all($stid, $res);
 
 		return array('data' => $res, 'number_rows' => $nRows);
 	}

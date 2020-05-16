@@ -1,30 +1,75 @@
-<?php if(!defined('_DTLR')) exit('Unauthorized');
+<?php
+/**
+ * Class Site
+ * 
+ * @package ProjetTheatre
+ * @author  Dorian Thivolle, Lilian Russo, Timon Roxard
+ */
+
+// SECU: pas d'accès direct
+if(!defined('_DTLR')) exit('Unauthorized');
 
 class Site {
-    protected $sProtocol 		= null;
+
+	/**
+	 * @var string protocole utilisé: http ou https
+	 */
+	protected $sProtocol 		= null;
+
+	/**
+	 * @var string chemin URL du projet
+	 */
 	protected $sBaseUrl			= null;
-    protected $sBasePath		= null;
+
+	/**
+	 * @var string chemin de base du projet
+	 */
+	protected $sBasePath		= null;
+
+	/**
+	 * @var string chemin du dossier contenant les pages
+	 */
     protected $sViewPath        = null;
 
-	// page
+	/**
+	 * @var string nom de la page à afficher
+	 */
 	protected $sPage 			= null;
 
-	// page par défaut (homepage)
+	/**
+	 * @var string page par défaut (homepage)
+	 */
 	protected $sDefaultPage		= 'accueil';
 
-	//
+	/**
+	 * @var string titre de l'onglet de la page
+	 */
 	protected $sMetaTitle		= '';
+
+	/**
+	 * @var string nom du site
+	 */
 	protected $sSiteName		= '';
 
 
-	// contenu
+	/**
+	 * @var string contenu de la page
+	 */
 	protected $Content 			= '';
+
+	/**
+	 * @var array configuration du site récupéré dans un .ini
+	 */
 	protected $aConfig			= [];
 
-	// user
+	/**
+	 * @var boolean indique si l'utilisateur est connecté ou non
+	 */
 	protected $connected		= false;
 
-	// database
+	/**
+	 * @var class base de données Oracle (exceptionnellement en publique pour ce projet)
+	 */
 	public $db					= null;
 
     function __construct($aConfig) {
@@ -58,11 +103,6 @@ class Site {
             $this->sPage = $this->sDefaultPage;
         }
 
-        $this->createContent();
-
-        if(preg_match('#<h1>(.*)</h1>#', $this->sContent, $aMatches) && !empty($aMatches[1])) {
-            $this->setTitle($aMatches[1]);
-        }
     }
 
     public function createContent() {
@@ -70,6 +110,10 @@ class Site {
 		$sIncPage = $this->getPagination();
 		include($sIncPage);
 		$this->sContent = ob_get_clean();
+
+		if(preg_match('#<h1>(.*)</h1>#', $this->sContent, $aMatches) && !empty($aMatches[1])) {
+            $this->setTitle($aMatches[1]);
+        }
     }
 
     public function getPagination() {
@@ -138,10 +182,20 @@ class Site {
 		return $this->sBaseUrl;
 	}
 
+
+	/**
+	 * Défini l'état de connexion
+	 * @param  boolean $state	état de la connexion
+	 * @return void
+	 */
 	public function setConnection($state) {
 		$this->connected = $state;
 	}
 
+	/**
+	 * Indique l'état de connexion de l'utilisateur
+	 * @return boolean
+	 */
 	public function isConnected() {
 		return $this->connected;
 	}

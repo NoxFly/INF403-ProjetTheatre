@@ -5,7 +5,8 @@
 
 * OCI8
 * Apache allow .htaccess RewriteRule
-* php >= 7.2
+* Php >= 7.2
+* Le CSS et le Javascript d'activés
 
 ### Structure
 

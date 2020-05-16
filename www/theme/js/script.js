@@ -77,6 +77,15 @@ $(document).ready(function() {
 	$('.page-tables-personnelles button').click(() => {
 		location.href = 'transfert';
 	});
+
+	let tableAction = null;
+
+	$('.page-gerer-representations table').on({
+		mouseenter: function() {
+			tableAction = $(this);
+			$('#pannel-spectacle').css('top', $(this).offset().top + $(this).height() / 2).fadeIn(0);
+		}
+	});
 });
 
 function post(params, callback=null) {

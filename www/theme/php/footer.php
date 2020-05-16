@@ -7,5 +7,5 @@
         <li><a href="about/a-propos">A propos</a></li>
         <li><a href="about/mentions-legales">Mentions légales</a></li>
     </ul>
-    <p>Dorian Thivolle & Lilian Russo &copy; <?php echo date('Y'); ?></p>
+    <p>Dorian Thivolle & Lilian Russo & Timon Roxard &copy; <?php echo date('Y'); ?></p>
 </footer>
