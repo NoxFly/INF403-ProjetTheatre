@@ -68,7 +68,7 @@ $login = $_SESSION['login'];
 $content = $this->db->listTables(strtoupper($login));
 
 echo "<table>
-		<tr><th>Tables de ".$login."</th></tr>";
+		<tr><th>Tables de ".strtoupper($login)."</th></tr>";
 foreach($content as $col){
     echo "<tr><td>$col</td></tr>";
 
