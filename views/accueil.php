@@ -59,6 +59,7 @@ else {
 <article>
 	<h3>Tansfert de base de données</h3>
 		<a href="transfert" class="summary-box">Transférer les données de la base THEATRE vers la base locale <?php echo strtoupper($_SESSION['login']); ?></a>
+		<a href="CategorieTicket" class="summary-box">Gérer les catégoties de ticket </a>
 </article>
 
 
