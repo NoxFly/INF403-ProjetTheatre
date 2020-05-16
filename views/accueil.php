@@ -57,8 +57,8 @@ else {
 		<a href="gerer-representations" class='summary-box'>Gérer les représentations</a>
 </article>
 <article>
-	<h3>Tansfert de base de donnée</h3>
-		<a href="transfert" class="summary-box">Transferer les donnée de la base THEATRE vers la base locale</a>
+	<h3>Tansfert de base de données</h3>
+		<a href="transfert" class="summary-box">Transférer les données de la base THEATRE vers la base locale <?php echo strtoupper($_SESSION['login']); ?></a>
 </article>
 
 

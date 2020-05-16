@@ -72,6 +72,11 @@ $(document).ready(function() {
 			$('.page-details-ticket #result').html(data);
 		});
 	});
+
+
+	$('.page-tables-personnelles button').click(() => {
+		location.href = 'transfert';
+	});
 });
 
 function post(params, callback=null) {

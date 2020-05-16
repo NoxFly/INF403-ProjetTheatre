@@ -7,8 +7,8 @@ $tabs = [
 // LOGGED TABS
 if($oSite->isConnected()) {
 	$tabs[] = ['Tables', 'tables'];
-	$tabs[] = ['Tickets', 'table/lestickets'];
-	$tabs[] = ['Spectacles', 'table/lesspectacles'];
+	$tabs[] = [ucfirst($_SESSION['login']), 'tables-personnelles'];
+	$tabs[] = ['Spectacles', 'table/THEATRE/lesspectacles'];
 	$tabs[] = ['<span class="logo-logout"><span></span></span>', 'administration/deconnexion'];
 }
 

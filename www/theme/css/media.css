@@ -10,3 +10,17 @@
 	#p404 {transform: translate(0, -30px);}
 	.page-tables {width: 100%;}
 }
+
+@media screen and (min-width: 1000px) {
+	.page-transfert {
+		text-align: center;
+	}
+
+	.page-transfert table {
+		display: inline-block;
+		width: auto;
+		margin: 10px;
+		min-width: auto;
+		vertical-align: top;
+	}
+}

@@ -67,7 +67,7 @@ $login = $_SESSION['login'];
 
 $content = $this->db->listTables(strtoupper($login));
 
-echo "<table style='margin-top:20px; '>
+echo "<table>
 		<tr><th>Tables de ".$login."</th></tr>";
 foreach($content as $col){
     echo "<tr><td>$col</td></tr>";
@@ -79,6 +79,6 @@ echo "</table>";
 ?>
 
 <form action="" method="POST">
-    <button style='display:block; margin: 10px auto;margin-top:50px;' type="submit" value = "OK" name="set">Tranfert vers votre base locale</button>
-    <button style='display:block; margin: 10px auto;margin-top:50px;' type="submit" value = "RESET" name="del">Supprimer les tables importées</button>
+    <button type="submit" value = "OK" name="set" class='validate'>Tranfert vers votre base locale</button>
+    <button type="submit" value = "RESET" name="del" class='delete'>Supprimer les tables importées</button>
 </form>

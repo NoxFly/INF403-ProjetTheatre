@@ -4,7 +4,7 @@ $tables = $this->db->listTables();
 
 ?>
 
-<h1>Tables</h1>
+<h1>Tables THEATRE</h1>
 
 <ul>
 	<?php
