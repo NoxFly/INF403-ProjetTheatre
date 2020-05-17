@@ -66,7 +66,7 @@ class Database {
 			}
 			oci_free_statement($stid);
 
-			return null;
+			return false;
 		}
 
 		return $stid;

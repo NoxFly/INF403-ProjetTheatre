@@ -179,13 +179,16 @@ $(document).ready(function() {
 		if(!/\S+/.test(showName)) return; // need a show name
 		if(!/\d+/.test(showDuration) || parseInt(showDuration) < 0) return; // need a positive integer show duration
 		
-
-		post({
+		let form = {
 			action: wnf.attr('class'),
 			name: showName,
 			duration: showDuration,
 			dates: dates
-		}, data => {
+		};
+
+		if(wnf.attr('class') == 'editShow') form.noSpec = parseInt(tableAction.attr('data-id'));
+
+		post(form, data => {
 			console.log(data);
 			let popup = $(data).find('#connexion-state');
 			data = $(data).find('#spectacles').html();
@@ -234,6 +237,8 @@ $(document).ready(function() {
 		wnf.find('input[type="number"]').val(parseInt(tableAction.find('tr:nth-child(2) td').text().trim()));
 		
 		let dates = tableAction.find('tr:nth-child(3) td').text().trim().split(', ');
+
+		if(dates[0] == "") dates.shift();
 		
 		dates.forEach(date => {
 			let [day, month, year] = date.split('-');

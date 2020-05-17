@@ -1,24 +1,5 @@
 <?php if(!defined('_DTLR')) exit('Unauthorized');
 
-function month($m) {
-    switch($m) {
-        case '01': return 'JAN';
-        case '02': return 'FEB';
-        case '03': return 'MAR';
-        case '04': return 'APR';
-        case '05': return 'MAY';
-        case '06': return 'JUN';
-        case '07': return 'JUL';
-        case '08': return 'AUG';
-        case '09': return 'SEP';
-        case '10': return 'OCT';
-        case '11': return 'NOV';
-        case '12': return 'DEC';
-    }
-}
-
-
-
 // create table LesSpectacles and LesRepresentations if they're not existing
 
 $lesSpectacles = $this->db->query("SELECT * FROM LesSpectacles");
@@ -61,9 +42,10 @@ else {
             } else {
 
                 foreach($_POST['dates'] as $k => $date) {
-                    $date = explode('-', $date);
-                    $d = $date[2].'-'.month($date[1]).'-'.substr($date[0], 2);
-                    $req2 = "INSERT INTO LesRepresentations (NOSPEC, DATEREP) VALUES ($id, $d)";
+                    // convertion date php
+                    $d = strtoupper(date('d-M-y', strtotime($date)));
+
+                    $req2 = "INSERT INTO LesRepresentations (NOSPEC, DATEREP) VALUES ($id, '$d')";
 
                     $this->db->query($req2);
                 }
@@ -88,7 +70,51 @@ else {
 
         }
 
+        // modifier un spectacle
+        else if($action == 'editShow') {
+            $id = $_POST['noSpec'];
+            $name = $_POST['name'];
+            $duration = $_POST['duration'];
+            $dates = $_POST['dates'];
 
+            $req = "UPDATE LesSpectacles SET NOMS='$name', DUREE=$duration WHERE NOSPEC=$id";
+
+            if($this->db->execute($req) === false) {
+                echo "<div id='connexion-state' class='fail'>Une erreur s'est produite</div>";
+            }
+            
+            else {
+                // récupération de toutes les dates enregistrées
+                $datesRep = $this->db->query("SELECT DATEREP FROM LesRepresentations WHERE NOSPEC=$id")['data']['DATEREP'];
+
+                // on met à jour les dates des représentations
+                foreach($dates as $k => $date) {
+                    // convertion date php
+                    $d = strtoupper(date('d-M-y', strtotime($date)));
+
+                    // on va regarder si la date est dans celles enregistrées
+                    // si elle n'y est pas, on l'ajoute (créé), sinon on la laisse
+                    // on regarde également les dates à supprimer
+                    
+                    // n'y est pas: on l'ajoute
+                    if(!in_array($d, $datesRep)) {
+                        $this->db->query("INSERT INTO LesRepresentations (NOSPEC, DATEREP) VALUES ($id, '$d')");
+                    }
+                    
+                    // y est (encore): on n'y touche pas dans la bdd, mais on l'enlève du tableau enregistré
+                    else {
+                        unset($datesRep[$k]);
+                    }
+                }
+
+                // on parcours les dates restantes et on les supprimes de la base de données car plus d'actualité
+                foreach($datesRep as $k => $date) {
+                    $this->db->query("DELETE FROM LesRepresentations WHERE NOSPEC=$id AND DATEREP='$date'");
+                }
+
+                echo "<div id='connexion-state' class='success'>Spectacle mis à jour</div>";
+            }
+        }
 
     }
 
@@ -203,7 +229,6 @@ else {
     ?>
 
     <div id="pannel-spectacle">
-        <span id='add-spec' title='Ajouter une date à ce spectacle'></span>
         <span id='edit-spec' title='Modifier le spectacle'></span>
         <span id='delete-spec' title='Supprimer le spectacle'></span>
     </div>
