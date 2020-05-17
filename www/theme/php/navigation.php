@@ -4,7 +4,7 @@ $tabs = [
 	['Accueil', '']
 ];
 
-// LOGGED TABS
+// ONGLETS D'UTILISATEUR CONNECTE
 if($oSite->isConnected()) {
 	$tabs[] = ['Tables', 'tables'];
 	$tabs[] = [ucfirst($_SESSION['login']), 'tables-personnelles'];
@@ -12,7 +12,7 @@ if($oSite->isConnected()) {
 	$tabs[] = ['<span class="logo-logout"><span></span></span>', 'administration/deconnexion'];
 }
 
-// VISITOR TABS
+// ONGLETS VISITEUR
 else {
 	$tabs[] = ['Connexion', 'administration/connexion'];
 }

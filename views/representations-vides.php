@@ -24,6 +24,7 @@ if($cursor) {
 
 	if($row) {
 
+		// affichage
 		echo "<table>
 			<tr>
 				<th>noSpec</th>

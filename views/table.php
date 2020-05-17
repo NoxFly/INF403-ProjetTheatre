@@ -1,28 +1,28 @@
 <?php if(!defined('_DTLR')) exit('Unauthorized');
 
-// get the table name
+// on récupère le nom de la table demandée
 $owner = preg_replace('/table\/(\w+)\/\w+/', '$1', $this->getPage());
 $table = preg_replace('/table\/\w+\/(\w+)/', '$1', $this->getPage());
 
+// on récupère les tables existantes
 $tables = $this->db->listTables($owner);
 
-//var_dump(in_array($table, $tables));
 
 echo "<h2>table</h2><h1 style='margin-top: 0;'>$table</h1>";
 
-// the asked table does not exist
+// si la table demandée n'existe pas
 if(!in_array(strtoupper($table), $tables)) {
 	echo "<p class='desc'>Cette table n'existe pas</p>";
 }
 
 
-// the asked table exists
+// la table demandée existe
 else {
 
-	// RECOVERY
+	// on récupère son contenu
 	$content = $this->db->getTableContent($owner, $table);
 
-	// TABLE CONTENT
+	// affichage
 	echo '<table>
 		<tr>';
 

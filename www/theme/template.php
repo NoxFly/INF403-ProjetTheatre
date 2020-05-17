@@ -19,6 +19,7 @@
     <body>
         <?php include 'theme/php/navigation.php'; ?>
 
+        <!-- affichage du contenu de la page -->
         <section id="content" class='page-<?php echo $oSite->getPage(); ?>'>
             <?php echo $oSite->getContent(); ?>
 		</section>

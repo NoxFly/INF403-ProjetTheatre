@@ -1,11 +1,13 @@
 <?php if(!defined('_DTLR')) exit('Unauthorized');
 
+// formulaire
 echo '<form id="spec-dos-v3">';
 
 	$req = "SELECT DISTINCT noDossier FROM theatre.LesTickets ORDER BY noDossier";
 
 	$res = $this->db->query($req);
 
+	// premier <select>
 	echo '<select id="select-noDossier">
 		<option disabled selected>Numéro dossier</option>';
 
@@ -17,6 +19,7 @@ echo '<form id="spec-dos-v3">';
 
 	echo '</select>';
 
+	// deuxième étape dynamique
 	echo '<article id="step-2">';
 
 		if(isset($_POST['noDossier'])) {
@@ -50,6 +53,7 @@ echo '<form id="spec-dos-v3">';
 echo '</form>';
 
 
+// résultat dynamique
 echo '<div id="result">';
 if(isset($_POST['categorie'])) {
 	$n = $_POST['noDossier'];

@@ -18,9 +18,11 @@ if(!$tablesExist) {
 }
 
 else {
-    // get the last index of the shows
+    // récupérer le dernier index de spectacle pour savoir où on se situe niveau PRIMARY KEY
+    // car il n'est pas en AUTO INCREMENT...
     $max = intval($this->db->query("SELECT max(NOSPEC) as N FROM LesSpectacles")['data']['N'][0]);
 
+    // requete AJAX
     if(isset($_POST['action'])) {
 
         $action = $_POST['action'];
@@ -55,6 +57,8 @@ else {
 
         }
 
+
+
         // supprimer un spectacle
         else if($action == 'delete') {
 
@@ -69,6 +73,8 @@ else {
             }
 
         }
+
+
 
         // modifier un spectacle
         else if($action == 'editShow') {
@@ -123,7 +129,7 @@ else {
 
 
 
-
+<!-- FORMULAIRE POUR CREER / MODIFIER UN SPECTACLE -->
 <section id="window-new-show">
 
     <form method='post'>
@@ -184,7 +190,17 @@ else {
 
         $spectacles = (object)array();
 
-        // re-structure the spectacle data array
+        // re-structure les données spectacle dans un tableau
+        // au lieu d'avoir:
+        // array(
+        //      [NOSPEC]: array(...)
+        //      [NOM]: array(...)
+        //      ...
+        //
+        // on a:
+        // array(
+        //      [index_spectacle(NOSPEC)]: array(NOSPEC, NOM, DUREE, DATES),
+        //      ...
         foreach($specs['data']['NOSPEC'] as $k => $noSpec) {
 
             $spectacles->{$noSpec} = (object)array(
@@ -196,13 +212,13 @@ else {
             
         }
 
-        // then add all shows
+        // on ajoute toutes les représentations pour chaque spectacle
         foreach($repr['data']['NOSPEC'] as $k => $noSpec) {
             $spectacles->{$noSpec}->DATES[] = '<span class="dateRep">'.$repr['data']['DATEREP'][$k].'</span>';
         }
         
 
-        // finally display all shows 1 per 1
+        // affichage
         foreach($spectacles as $k => $spectacle) {
             
             $id = $spectacle->NOSPEC;
@@ -228,6 +244,7 @@ else {
 
     ?>
 
+    <!-- PANNEL EDIT / DELETE -->
     <div id="pannel-spectacle">
         <span id='edit-spec' title='Modifier le spectacle'></span>
         <span id='delete-spec' title='Supprimer le spectacle'></span>

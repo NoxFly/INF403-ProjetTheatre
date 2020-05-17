@@ -3,7 +3,7 @@
 echo '<div id="specDos-res"></div>';
 
 if(isset($_POST['category']) && !empty($category = $_POST['category'])) {
-	// searching for a given category
+	// on cherche pour une catégorie donnée
 	$req = "SELECT noPlace, noRang, noZone, nomS
 		FROM
 			theatre.LesSieges natural join
@@ -19,10 +19,11 @@ if(isset($_POST['category']) && !empty($category = $_POST['category'])) {
 
 	$cursor = $this->db->execute($req, $category);	
 
-
+	// résultat trouvé
 	if($cursor) {
 		$row = oci_fetch($cursor);
 
+		// affichage
 		if($row) {
 
 			echo '<table>

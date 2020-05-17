@@ -1,5 +1,6 @@
 <?php if(!defined('_DTLR')) exit('Unauthorized');
 
+// requete
 $req = "SELECT count(noSerie) as noSerie, noSpec, dateRep, nomS
 		FROM
 			(SELECT T.noSerie as noSerie, R.noSpec as noSpec, R.dateRep as dateRep, S.nomS as nomS
@@ -16,10 +17,13 @@ $req = "SELECT count(noSerie) as noSerie, noSpec, dateRep, nomS
 
 $cursor = $this->db->execute($req);
 
+
+// on trouve un résultat
 if($cursor) {
 
 	$row = oci_fetch_array($cursor, OCI_ASSOC);
 
+	// affichage
 	if($row) {
 
 		echo "<table>

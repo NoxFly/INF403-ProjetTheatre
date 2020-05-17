@@ -1,5 +1,6 @@
 <?php if(!defined('_DTLR')) exit('Unauthorized');
 
+// requetes
 $reqs = [
 	"SELECT count(noSerie) as noSerie, dateRep, noSpec
 		FROM theatre.LesTickets
@@ -12,11 +13,13 @@ $reqs = [
 $cursor1 = $this->db->execute($reqs[0]);
 $cursor2 = $this->db->execute($reqs[1]);
 
+// on trouve un/des resultat(s)
 if($cursor1 && $cursor2) {
 
 	$row1 = oci_fetch_array($cursor1, OCI_ASSOC);
 	$row2 = oci_fetch_array($cursor2, OCI_ASSOC);
 
+	// affichage
 	if($row1 && $row2) {
 
 		echo "<table>

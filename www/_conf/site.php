@@ -72,6 +72,10 @@ class Site {
 	 */
 	public $db					= null;
 
+	/**
+	 * Constructeur de la classe site
+	 * @param array $aConfig configuration du site (nom, basepath, ...)
+	 */
     function __construct($aConfig) {
         $this->aConfig = $aConfig;
 
@@ -105,6 +109,9 @@ class Site {
 
     }
 
+	/**
+	 * récupère le contenu de la page depuis sont fichier source
+	 */
     public function createContent() {
 		ob_start();
 		$sIncPage = $this->getPagination();
@@ -116,6 +123,10 @@ class Site {
         }
     }
 
+	/**
+	 * retourne le chemin du root du site jusqu'à la page suivant la page demandée
+	 * @return string chemin jusqu'à la page
+	 */
     public function getPagination() {
       	// pages folder
 		$sPagesPath =  $this->sViewPath.'/';
@@ -149,31 +160,59 @@ class Site {
       	header('HTTP/1.0 404 Not Found');
         return $sPagesPath.'404.php';
     }
-    
+	
+	/**
+	 * défini le contenu à afficher
+	 * @param string $s contenu
+	 */
     public function setContent($s) {
 		$this->sContent = $s;
     }
-    
+	
+	/**
+	 * retourne le contenu de la page
+	 * @return string
+	 */
     public function getContent() {
 		return $this->sContent;
     }
-    
+	
+	/**
+	 * défini le titre que l'onglet du site web sur cette page devrait avoir
+	 * @param string $s titre de l'onglet
+	 */
     public function setTitle($s) {
 		$this->sMetaTitle = strip_tags($s);
     }
-    
+	
+	/**
+	 * retourne le titre de la page du site
+	 * @return string titre de la page
+	 */
     public function getTitle() {
         return empty($this->sMetaTitle)? $this->sSiteName : $this->sMetaTitle;
     }
-    
+	
+	/**
+	 * retourne la page par défaut
+	 * @return string nom de la page par défaut
+	 */
     public function getDefaultPage() {
 		return $this->sDefaultPage;
     }
-    
+	
+	/**
+	 * retourne le nom de la page à afficher
+	 * @return string nom de la page
+	 */
     public function getPage() {
 		return $this->sPage;
     }
-    
+	
+	/**
+	 * retourne l'URL du projet
+	 * @return string url du projet
+	 */
     public function getBaseUrl($bAbsolute=false) {
 		if($bAbsolute) {
 			return $this->sProtocol.'://'.$_SERVER['HTTP_HOST'].$this->sBaseUrl;

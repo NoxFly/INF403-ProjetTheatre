@@ -1,14 +1,22 @@
 <?php if(!defined('_DTLR')) exit('Unauthorized');
 
-
+/**
+ * Essaie de se connecter à la base de donnée Oracle
+ * @param  object $oDb			classe qui gère la base de donnée
+ * @param  string $login		nom de connection
+ * @param  string $password		mot de passe
+ * @param  bool   $announcement popup qui indique si connection réussie ou pas
+ * @return bool   connexion réussie ou non
+ */
 function connect($oDb, $login, $password, $announcement=false) {
-	// by default
+	// par défaut
 	$answer = 'Erreur de connexion';
 	$state = 'fail';
 
-	// after he sent the form
+	// après qu'il ait envoyé le formulaire
 	if(!empty($login) && !empty($password)) {
-		// if successfully connected to the database
+
+		// connection réussie
 		if($oDb->connect($login, $password)) {
 			$answer = 'Vous vous êtes bien connecté en tant que ' . $login;
 			$state = 'success';
@@ -17,7 +25,7 @@ function connect($oDb, $login, $password, $announcement=false) {
 			$_SESSION['password'] = $password;
 		}
 
-		// print connection state
+		// connection fail
 		if($announcement) echo "<div id='connexion-state' class='$state'>$answer</div>";
 	}
 

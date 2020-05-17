@@ -51,6 +51,7 @@ if(!$res) {
 // on libère le curseur
 oci_free_statement($stid);
 
+// div dynamique suivant les options choisies
 echo '<div id="result">';
 	if(isset($_POST['noSerie'])) {
 
@@ -62,6 +63,7 @@ echo '<div id="result">';
 			
 		$cursor = $this->db->execute($req, $_POST['noSerie']);
 
+		// on a trouvé un ticket suivant le numéro de série
 		if($cursor) {
 
 			$res = oci_fetch($cursor);
@@ -69,6 +71,8 @@ echo '<div id="result">';
 			if(!$res) {
 				echo "<p class='desc'>Ticket inconnu</p>";
 			} else {
+
+				// affichage des données
 
 				echo "<table>
 					<tr>

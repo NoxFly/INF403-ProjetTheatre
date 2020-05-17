@@ -2,6 +2,7 @@
 
 $login = $_SESSION['login'];
 
+// on récupère les tables de l'utilisateur
 $tables = $this->db->listTables(strtoupper($login));
 ?>
 
@@ -11,6 +12,7 @@ $tables = $this->db->listTables(strtoupper($login));
 
 <ul>
 	<?php
+	// affichage - lien vers le détail / contenu de chaque table
 	foreach($tables as $k => $table) {
 		$link = 'table/' . strtoupper($login) . '/' . strtolower($table);
 		echo "<li><h3><a href='$link'>$table</a><h3></li>";

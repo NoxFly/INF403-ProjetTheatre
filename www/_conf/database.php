@@ -1,6 +1,7 @@
 <?php if(!defined('_DTLR')) exit('Unauthorized');
 
 class Database {
+	// variables
     private $host;
     private $port;
     private $service_name;
@@ -10,6 +11,10 @@ class Database {
 
     private $prefix = 'THEATRE';
 
+	/**
+	 * constructeur de la clase Database
+	 * @param array $config configuration de la base de donnée (host, db, name, psswd, ...)
+	 */
     public function __construct($config) {
         $this->host = $config['host'];
         $this->port = $config['port'];
@@ -21,6 +26,12 @@ class Database {
 		$this->link = null;
 	}
 	
+	/**
+	 * essaie d'établir une connection entre le site et la base de donnée Oracle
+	 * @param  string $username nom d'utilisateur de la base de donnée
+	 * @param  string $password mot de passe utilisateur
+	 * @return bool   si la connection a réussie ou non
+	 */
 	public function connect($username='', $password='') {
 		if(!empty($username) && !empty($password)) {
 			$this->username = $username;
@@ -37,7 +48,12 @@ class Database {
 		}
 	}
 
-	// normally not public but for a homework like this I can
+	/**
+	 * normalement private mais pour ce projet on le met public
+	 * execute une reqête SQL
+	 * @param  string $sql
+	 * @return array|bool false si la requête n'abouti pas, sinon le résultat
+	 */
     public function query($sql) {
 		$stid = oci_parse($this->link, $sql);
 		$ok = @oci_execute($stid);
@@ -50,7 +66,15 @@ class Database {
 		}
 	}
 
-	// instead of query that returns a result, it returns a pointer / cursor to the result
+	/**
+	 * pareil que la méthode query, mais renvoie un curseur et non un résultat complet (fetch_all)
+	 * permet également une verbose (par défaut true)
+	 * @param  string $sql     requête
+	 * @param  string $bind    si on doit focus une ligne dans la requête
+	 * @param  object $params  paramètres de la reqête (par défaut aucun)
+	 * @param  bool   $verbose verbose ou non
+	 * @return object|bool curseur ou false, si la requête n'a pas abouti
+	 */
 	public function execute($sql, $bind=null, $params=null, $verbose=TRUE) {
 		$stid = oci_parse($this->link, $sql);
 
@@ -72,6 +96,11 @@ class Database {
 		return $stid;
 	}
 	
+	/**
+	 * renvoie le nom de toutes les tables d'une base donnée
+	 * @param  string @dbName nom de la base
+	 * @return array liste des noms des tables
+	 */
 	public function listTables($dbName=null) {
 		if(!$dbName) $dbName = $this->prefix;
 
@@ -85,18 +114,32 @@ class Database {
 		return [];
 	}
 
+	/**
+	 * retourne le contenu d'une table suivant sont nom et sa base
+	 * @return object
+	 */
 	public function getTableContent($owner, $tableName) {
 		return $this->query("SELECT * FROM $owner.$tableName");
 	}
 
+	/**
+	 * annule une requête
+	 */
 	public function cancel() {
 		oci_rollback($this->link);
 	}
 
+	/**
+	 * finalise une requête
+	 */
 	public function commit() {
 		oci_commit($this->link);
 	}
 
+	/**
+	 * affiche une erreur depuis un curseur
+	 * @param  object $cursor curseur de la requête
+	 */
 	public function displayError($cursor) {
 		$e = @oci_error($cursor);
 		
