@@ -22,97 +22,80 @@ function month($m) {
 // create table LesSpectacles and LesRepresentations if they're not existing
 
 $lesSpectacles = $this->db->query("SELECT * FROM LesSpectacles");
-
-if($lesSpectacles === false) {
-    $req = "CREATE TABLE LesSpectacles
-        (
-            NOSPEC  INT             NOT NULL,
-            NOMS    VARCHAR(100)    NOT NULL,
-            DUREE   INT,
-            PRIMARY KEY (NOSPEC)
-        )";
-
-    $this->db->query($req);
-}
-
 $lesRepresentations = $this->db->query("SELECT * FROM LesRepresentations");
 
-if($lesRepresentations === false) {
-    $req = "CREATE TABLE LesRepresentations
-        (
-            NOSPEC  INT     NOT NULL,
-            DATEREP DATE    NOT NULL
-        )";
+$tablesExist = true;
 
-    $this->db->query($req);
+if($lesSpectacles === false || $lesRepresentations === false) {
+    $tablesExist = false;
 }
 
+echo "<h1>Gérer les représentations</h1>";
 
+if(!$tablesExist) {
+    echo "<p class='desc'>Il manque au moins une des deux tables suivantes: LesSpectacles, LesRepresentations</p>";
+}
 
+else {
+    // get the last index of the shows
+    $max = intval($this->db->query("SELECT max(NOSPEC) as N FROM LesSpectacles")['data']['N'][0]);
 
+    if(isset($_POST['action'])) {
 
-// get the last index of the shows
-$max = intval($this->db->query("SELECT max(NOSPEC) as N FROM LesSpectacles")['data']['N'][0]);
+        $action = $_POST['action'];
 
-if(isset($_POST['action'])) {
+        // créer un spectacle
+        if($action == 'newShow') {
 
-    $action = $_POST['action'];
+            $id = $max + 1;
+            $name = $_POST['name'];
+            $duration = $_POST['duration'];
+            
+            // création du spectacle
+            $req1 = "INSERT INTO LesSpectacles (NOSPEC, NOMS, DUREE) VALUES ($id, '$name', $duration)";
+            $res1 = $this->db->query($req1);
 
-    // créer un spectacle
-    if($action == 'newShow') {
+            // ajout des représentations si spectacle créé
+            if($res1 === false) {
+                echo "<div id='connexion-state' class='fail'>Une erreur s'est produite</div>";
+            } else {
 
-		$id = $max + 1;
-        $name = $_POST['name'];
-		$duration = $_POST['duration'];
-        
-        // création du spectacle
-        $req1 = "INSERT INTO LesSpectacles (NOSPEC, NOMS, DUREE) VALUES ($id, '$name', $duration)";
-        $res1 = $this->db->query($req1);
+                foreach($_POST['dates'] as $k => $date) {
+                    $date = explode('-', $date);
+                    $d = $date[2].'-'.month($date[1]).'-'.substr($date[0], 2);
+                    $req2 = "INSERT INTO LesRepresentations (NOSPEC, DATEREP) VALUES ($id, $d)";
 
-        // ajout des représentations si spectacle créé
-        if($res1 === false) {
-            echo "<div id='connexion-state' class='fail'>Une erreur s'est produite</div>";
-        } else {
+                    $this->db->query($req2);
+                }
 
-            foreach($_POST['dates'] as $k => $date) {
-                $date = explode('-', $date);
-                $d = $date[2].'-'.month($date[1]).'-'.substr($date[0], 2);
-                $req2 = "INSERT INTO LesRepresentations (NOSPEC, DATEREP) VALUES ($id, $d)";
-
-                $this->db->query($req2);
+                echo "<div id='connexion-state' class='success'>Spectacle créé</div>";
             }
 
-            echo "<div id='connexion-state' class='success'>Spectacle créé</div>";
         }
 
-    }
+        // supprimer un spectacle
+        else if($action == 'delete') {
 
-    // supprimer un spectacle
-    else if($action == 'delete') {
+            $id = $_POST['noSpec'];
 
-        $id = $_POST['noSpec'];
+            $req = "DELETE FROM LesSpectacles WHERE NOSPEC = $id";
 
-        $req = "DELETE FROM LesSpectacles WHERE NOSPEC = $id";
+            if($this->db->query($req) === false) {
+                echo "<div id='connexion-state' class='fail'>Une erreur s'est produite</div>";
+            } else {
+                echo "<div id='connexion-state' class='success'>Spectacle supprimé</div>";
+            }
 
-        if($this->db->query($req) === false) {
-            echo "<div id='connexion-state' class='fail'>Une erreur s'est produite</div>";
-        } else {
-            echo "<div id='connexion-state' class='success'>Spectacle supprimé</div>";
         }
 
+
+
     }
-
-
-
-}
 
 
 ?>
 
 
-
-
-<h1>Gérer les représentations</h1>
 
 
 <section id="window-new-show">
@@ -226,3 +209,7 @@ if(isset($_POST['action'])) {
     </div>
 
 </section>
+
+<?php
+
+}
