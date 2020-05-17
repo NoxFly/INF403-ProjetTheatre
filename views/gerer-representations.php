@@ -1,40 +1,171 @@
-<?php if(!defined('_DTLR')) exit('Unauthorized'); ?>
+<?php if(!defined('_DTLR')) exit('Unauthorized');
+
+function month($m) {
+    switch($m) {
+        case '01': return 'JAN';
+        case '02': return 'FEB';
+        case '03': return 'MAR';
+        case '04': return 'APR';
+        case '05': return 'MAY';
+        case '06': return 'JUN';
+        case '07': return 'JUL';
+        case '08': return 'AUG';
+        case '09': return 'SEP';
+        case '10': return 'OCT';
+        case '11': return 'NOV';
+        case '12': return 'DEC';
+    }
+}
+
+
+
+// create table LesSpectacles and LesRepresentations if they're not existing
+
+$lesSpectacles = $this->db->query("SELECT * FROM LesSpectacles");
+
+if($lesSpectacles === false) {
+    $req = "CREATE TABLE LesSpectacles
+        (
+            NOSPEC  INT             NOT NULL,
+            NOMS    VARCHAR(100)    NOT NULL,
+            DUREE   INT,
+            PRIMARY KEY (NOSPEC)
+        )";
+
+    $this->db->query($req);
+}
+
+$lesRepresentations = $this->db->query("SELECT * FROM LesRepresentations");
+
+if($lesRepresentations === false) {
+    $req = "CREATE TABLE LesRepresentations
+        (
+            NOSPEC  INT     NOT NULL,
+            DATEREP DATE    NOT NULL
+        )";
+
+    $this->db->query($req);
+}
+
+
+
+
+
+// get the last index of the shows
+$max = intval($this->db->query("SELECT max(NOSPEC) as N FROM LesSpectacles")['data']['N'][0]);
+
+if(isset($_POST['action'])) {
+
+    $action = $_POST['action'];
+
+    // créer un spectacle
+    if($action == 'newShow') {
+
+		$id = $max + 1;
+        $name = $_POST['name'];
+		$duration = $_POST['duration'];
+        
+        // création du spectacle
+        $req1 = "INSERT INTO LesSpectacles (NOSPEC, NOMS, DUREE) VALUES ($id, '$name', $duration)";
+        $res1 = $this->db->query($req1);
+
+        // ajout des représentations si spectacle créé
+        if($res1 === false) {
+            echo "<div id='connexion-state' class='fail'>Une erreur s'est produite</div>";
+        } else {
+
+            foreach($_POST['dates'] as $k => $date) {
+                $date = explode('-', $date);
+                $d = $date[2].'-'.month($date[1]).'-'.substr($date[0], 2);
+                $req2 = "INSERT INTO LesRepresentations (NOSPEC, DATEREP) VALUES ($id, $d)";
+
+                $this->db->query($req2);
+            }
+
+            echo "<div id='connexion-state' class='success'>Spectacle créé</div>";
+        }
+
+    }
+
+    // supprimer un spectacle
+    else if($action == 'delete') {
+
+        $id = $_POST['noSpec'];
+
+        $req = "DELETE FROM LesSpectacles WHERE NOSPEC = $id";
+
+        if($this->db->query($req) === false) {
+            echo "<div id='connexion-state' class='fail'>Une erreur s'est produite</div>";
+        } else {
+            echo "<div id='connexion-state' class='success'>Spectacle supprimé</div>";
+        }
+
+    }
+
+
+
+}
+
+
+?>
+
+
+
 
 <h1>Gérer les représentations</h1>
 
 
-<?php
+<section id="window-new-show">
 
-function findSpectacle($aSpectacles, $id) {
-    foreach($aSpectacles['NOSPEC'] as $k => $spectacleId) {
-        if($spectacleId == $id) {
-            return (object)array(
-                "NOSPEC" => $id,
-                "NOM" => $aSpectacles['NOMS'][$k],
-                "DUREE" => $aSpectacles['DUREE'][$k]
-            );
-        }
-    }
+    <form method='post'>
 
-    return null;
-}
+        <h2>Nouveau spectacle</h2>
 
-$newSpecButton = "<button class='validate'>Nouveau spectacle</button>";
+        <article>
+
+            <input type='text' name='nomSpectacle' placeholder='Nom du spectacle'>
+
+            <input type='number' name='dureeSpectacle' placeholder='Durée (en minutes)' min='0'>
+
+        </article>
+
+        <article>
+            <label>Dates des représentations</label>
+            <input type='date' name='dateRep' id='dateRepInput'>
+            <div id='area-representations'>
+                <p class='desc' style='font-size: .8em;'>Aucune date</p>
+            </div>
+        </article>
+        
+        
+    </form>
+    
+    <button class='cancel'>Annuler</button>
+    <button class='validate'>Confirmer</button>
+        
+    
+</section>
 
 
-$repr = $this->db->query("SELECT * FROM LesRepresentations ORDER BY NOSPEC");
 
-if($repr['number_rows'] == 0) {
-    echo "<p class='desc'>Aucune représentation</p>";
-    echo $newSpecButton;
-}
 
-else {
+
+
+<section id='spectacles'>
+
+    <?php
+
+    $newSpecButton = "<button id='new-show-btn' class='validate'>Nouveau spectacle</button>";
+
+
+    $repr = $this->db->query("SELECT * FROM LesRepresentations ORDER BY NOSPEC");
 
     $specs = $this->db->query("SELECT * FROM LesSpectacles");
+    
 
     if($specs['number_rows'] == 0) {
-        echo "<p class='desc'>Erreur: Il y a des représentations mais pas de spectacle enregistré</p>";
+        echo "<p class='desc'>Aucun spectacle enregistré</p>";
+        echo $newSpecButton;
     }
     
     else {
@@ -44,31 +175,30 @@ else {
 
         $spectacles = (object)array();
 
+        // re-structure the spectacle data array
+        foreach($specs['data']['NOSPEC'] as $k => $noSpec) {
 
-        foreach($repr['data']['NOSPEC'] as $k => $noSpec) {
-            $dateRep = '<span class="dateRep">'.$repr['data']['DATEREP'][$k].'</span>';
-            $spectacle = findSpectacle($specs['data'], $noSpec);
-
-            if(!$spectacle) {
-                echo "<p class='desc'>Erreur: La représentation $noSpec n'appartient à aucun spectacle</p>";
-            }
+            $spectacles->{$noSpec} = (object)array(
+                "NOSPEC"    => $noSpec,
+                "NOM"       => $specs['data']['NOMS'][$k],
+                "DUREE"     => $specs['data']['DUREE'][$k],
+                "DATES"     => []
+            );
             
-            else {
-
-                if(property_exists($spectacles, $noSpec)) {
-                    $spectacles->{$noSpec}->DATES[] = $dateRep;
-                } else {
-                    $spectacles->{$noSpec} = (object)array(
-                        "NOM" => $spectacle->NOM,
-                        "DUREE" => $spectacle->DUREE,
-                        "DATES" => [$dateRep]
-                    );
-                }
-            }
         }
 
+        // then add all shows
+        foreach($repr['data']['NOSPEC'] as $k => $noSpec) {
+            $spectacles->{$noSpec}->DATES[] = '<span class="dateRep">'.$repr['data']['DATEREP'][$k].'</span>';
+        }
+        
+
+        // finally display all shows 1 per 1
         foreach($spectacles as $k => $spectacle) {
-            echo "<table>";
+            
+            $id = $spectacle->NOSPEC;
+
+            echo "<table data-id='$id'>";
             
             echo "<tr>
                 <th>NOM</th><td><b>".$spectacle->NOM."</b></td>
@@ -87,12 +217,12 @@ else {
 
     }
 
-}
+    ?>
 
-?>
+    <div id="pannel-spectacle">
+        <span id='add-spec' title='Ajouter une date à ce spectacle'></span>
+        <span id='edit-spec' title='Modifier le spectacle'></span>
+        <span id='delete-spec' title='Supprimer le spectacle'></span>
+    </div>
 
-<div id="pannel-spectacle">
-    <span id='add-spec' title='Ajouter une date à ce spectacle'></span>
-    <span id='edit-spec' title='Modifier le spectacle'></span>
-    <span id='delete-spec' title='Supprimer le spectacle'></span>
-</div>
+</section>

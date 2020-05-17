@@ -18,7 +18,7 @@ function connect($oDb, $login, $password, $announcement=false) {
 		}
 
 		// print connection state
-		if($announcement) echo "<div id='connection-state' class='$state'>$answer</div>";
+		if($announcement) echo "<div id='connexion-state' class='$state'>$answer</div>";
 	}
 
 	return $state == 'success';

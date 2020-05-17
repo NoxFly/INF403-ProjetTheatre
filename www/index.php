@@ -1,8 +1,9 @@
 <?php
 /**
- * package: PROJET THEATRE
- * authors: Dorian Thivolle
+ * @package: PROJET THEATRE
+ * @author: Dorian Thivolle
  *          Lilian Russo
+ * 			Timon Roxard
  */
 
 // security constant
@@ -85,6 +86,7 @@ if(!$oSite->isConnected() && !in_array($oSite->getPage(), ['', 'accueil', 'admin
 	header('location: '.$oSite->getBaseUrl());
 }
 
+// create the current page content
 $oSite->createContent();
 
 

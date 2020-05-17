@@ -40,15 +40,18 @@ class Database {
 	// normally not public but for a homework like this I can
     public function query($sql) {
 		$stid = oci_parse($this->link, $sql);
-		@oci_execute($stid);		
+		$ok = @oci_execute($stid);
 
-		$nRows = @oci_fetch_all($stid, $res);
+		if(!$ok) return false;
 
-		return array('data' => $res, 'number_rows' => $nRows);
+		if(strpos($sql, 'SELECT') !== false) {
+			$nRows = @oci_fetch_all($stid, $res);
+			return array('data' => $res, 'number_rows' => $nRows);
+		}
 	}
 
 	// instead of query that returns a result, it returns a pointer / cursor to the result
-	public function execute($sql, $bind=null, $params=null,$verbose=TRUE) {
+	public function execute($sql, $bind=null, $params=null, $verbose=TRUE) {
 		$stid = oci_parse($this->link, $sql);
 
 		if($bind) oci_bind_by_name($stid, ':n', $bind);

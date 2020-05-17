@@ -69,7 +69,7 @@ button.validate {
 	font-weight: bold;
 }
 
-#connection-state {
+#connexion-state {
 	position: fixed;
 	top: -100px;
 	left: 50%;
@@ -83,11 +83,11 @@ button.validate {
 	z-index: 99;
 }
 
-#connection-state.success {
+#connexion-state.success {
 	background: #77b255;
 }
 
-#connection-state.fail {
+#connexion-state.fail {
 	background: #dd2e44;
 }
 
@@ -378,4 +378,70 @@ form label input {
 
 .page-categorie-ticket table td {
 	text-align: center;
+}
+
+#window-new-show {
+	background: #eee;
+	display: none;
+	z-index: 5;
+	text-align: center;
+	margin-bottom: 50px;
+	height: 400px;
+}
+
+#window-new-show form {
+	width: 800px;
+}
+
+#window-new-show h2 {
+	font-size: 1.4em;
+	margin-bottom: 40px;
+}
+
+#window-new-show article {
+	width: 49%;
+	height: 60%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+#window-new-show input[type='text'] {
+	margin-top: 33px;
+}
+
+#window-new-show label {
+	display: block;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+#window-new-show input[type='date'] {
+	display: inline-block;
+	vertical-align: top;
+	width: 40%;
+	margin: 0;
+}
+
+#window-new-show button {
+	display: inline-block;
+	margin: 0 auto;
+}
+
+#area-representations {
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	width: 150px;
+	height: calc(100% - 50px);
+	overflow-x: hidden;
+	overflow-y: auto;
+	display: inline-block;
+	vertical-align: top;
+}
+
+#window-new-show #area-representations input {
+	width: 95%;
+	margin: 2px auto;
+	display: block;
+	background: #ddd;
 }
