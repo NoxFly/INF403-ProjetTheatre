@@ -427,3 +427,27 @@ form label input {
 	display: block;
 	background: #ddd;
 }
+
+.page-gerer-reservations h2 {
+	transform: none;
+}
+
+.page-gerer-reservations form {
+	height: auto;
+	min-height: auto;
+	margin-bottom: 50px;
+}
+
+.page-gerer-reservations select {
+	display: block;
+	text-align: center;
+	margin: 5px auto;
+}
+
+.page-gerer-reservations .reservation {
+	display: inline;
+}
+
+.page-gerer-reservations .add_form {
+	display: inline;
+}
