@@ -379,3 +379,18 @@ form label input {
 .page-categorie-ticket table td {
 	text-align: center;
 }
+
+.page-gerer-reservation select {
+	display: block;
+	width: auto;
+	text-align: center;
+}
+
+.page-gerer-reservation .reservation {
+	display: inline;
+
+}
+
+.page-gerer-reservation .add_form{
+	display: inline;
+}
