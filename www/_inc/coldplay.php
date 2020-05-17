@@ -1,4 +1,4 @@
-<?php
+<?php if(!defined('_DTLR')) exit('Unauthorized');
 
 $req = "SELECT to_char(dateRep,'Day, DD-Month-YYYY HH:MI') as daterep
 	FROM

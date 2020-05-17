@@ -1,4 +1,4 @@
-<?php
+<?php if(!defined('_DTLR')) exit('Unauthorized');
 
 // recover all tables from the base THEATRE
 $req = "SELECT table_name from all_tables where owner='THEATRE'";

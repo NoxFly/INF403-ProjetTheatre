@@ -1,4 +1,4 @@
-<?php
+<?php if(!defined('_DTLR')) exit('Unauthorized');
 
 $reqs = [
 	"SELECT count(noSerie) as noSerie, dateRep, noSpec
