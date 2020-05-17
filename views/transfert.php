@@ -107,5 +107,5 @@ echo "</table>";
 <form action="" method="POST">
     <button type="submit" value="OK" name="import" class='validate'>Tranfert vers votre base locale</button>
     <button type="submit" value="RESET" name="del" class='delete'>Supprimer les tables importées</button>
-    <button type="submit" value="RESET" name="del_everything" class='delete'>Supprimer toutes les tables</button>
+    <button type="submit" value="RESET" name="del_everything" class='delete' style="transform: scale(.8); margin-top: 40px;">Supprimer toutes les tables</button>
 </form>
